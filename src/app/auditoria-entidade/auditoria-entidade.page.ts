@@ -12,7 +12,7 @@ import { SQLiteObject } from '@ionic-native/sqlite/ngx';
 export class AuditoriaEntidadePage implements OnInit {
   
   entidades: any;
-  db: SQLiteObject;
+
   constructor(private auditoriaEntidadeService: AuditoriaEntidadeService,
               private storage: Storage,
               private databaseService: DatabaseService) { }
@@ -43,6 +43,10 @@ export class AuditoriaEntidadePage implements OnInit {
     this.storage.get('auditoria').then((val) => {
       console.log('Your age is', val);
     });
+  }
+
+  teste() {
+    return;
   }
 
 }
