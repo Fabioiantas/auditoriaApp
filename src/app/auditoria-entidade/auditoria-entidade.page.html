@@ -8,5 +8,21 @@
 </ion-header>
 
 <ion-content>
-  
+  <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let entidade of entidades">
+      <ion-avatar slot="start">
+        <ion-fab-button (click)="add(entidade)" size="small">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-avatar>
+      <ion-label>
+        <h5>{{entidade.entidade.nm_reduzido}}</h5>
+        <h6>{{entidade.propriedade.nm_propriedade}}</h6>
+        <p>{{entidade.auditoria_nivel.nm_nivel}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

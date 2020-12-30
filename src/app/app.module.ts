@@ -1,3 +1,5 @@
+import { SQLite } from '@ionic-native/sqlite/ngx';
+import { AuditoriaEntidadeService } from './services/auditoria-entidade.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -12,6 +14,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { FormBuilder } from '@angular/forms';
+import { IonicStorageModule } from '@ionic/storage';
+
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +24,7 @@ import { FormBuilder } from '@angular/forms';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule
   ],
@@ -26,9 +32,11 @@ import { FormBuilder } from '@angular/forms';
     StatusBar,
     SplashScreen,
     FormBuilder,
+    AuditoriaEntidadeService,
+    SQLite,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

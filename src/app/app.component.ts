@@ -1,3 +1,4 @@
+import { DatabaseService } from './services/database.service';
 import { Component, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -18,8 +19,8 @@ export class AppComponent implements OnInit {
       icon: 'mail'
     },
     {
-      title: 'Outbox',
-      url: '/folder/Outbox',
+      title: 'Login',
+      url: '/login',
       icon: 'paper-plane'
     },
     {
@@ -45,16 +46,16 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
-  constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar
-  ) {
+  constructor(private platform: Platform,
+              private splashScreen: SplashScreen,
+              private statusBar: StatusBar,
+              private dataBaseService: DatabaseService) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      this.dataBaseService.createDatabase();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
