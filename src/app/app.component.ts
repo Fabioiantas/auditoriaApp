@@ -1,7 +1,8 @@
+import { DbService } from './services/db.service';
 import { DatabaseService } from './services/database.service';
 import { Component, OnInit } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { LoadingController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -49,15 +50,25 @@ export class AppComponent implements OnInit {
   constructor(private platform: Platform,
               private splashScreen: SplashScreen,
               private statusBar: StatusBar,
-              private dataBaseService: DatabaseService) {
+              private db: DbService,
+              private loadingCtrl: LoadingController) {
     this.initializeApp();
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
-      this.dataBaseService.createDatabase();
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+    this.platform.ready().then(async () => {
+      // this.statusBar.styleDefault();
+      // this.splashScreen.hide();
+      const loading = await this.loadingCtrl.create();
+      this.db.init();
+      
+      this.db.dbReady.subscribe(isReady => {
+        if (isReady) {
+          loading.dismiss();
+          this.statusBar.styleDefault();
+          this.splashScreen.hide();
+        }
+      });
     });
   }
 

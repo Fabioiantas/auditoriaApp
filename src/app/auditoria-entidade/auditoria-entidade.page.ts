@@ -1,8 +1,8 @@
-import { DatabaseService } from './../services/database.service';
+import { DbService } from './../services/db.service';
 import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { AuditoriaEntidadeService } from './../services/auditoria-entidade.service';
-import { SQLiteObject } from '@ionic-native/sqlite/ngx';
+import { timingSafeEqual } from 'crypto';
 
 @Component({
   selector: 'app-auditoria-entidade',
@@ -15,12 +15,13 @@ export class AuditoriaEntidadePage implements OnInit {
 
   constructor(private auditoriaEntidadeService: AuditoriaEntidadeService,
               private storage: Storage,
-              private databaseService: DatabaseService) { }
+              private db: DbService) { }
 
   ngOnInit() {
     this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
       this.entidades = data;
     });
+    this.getProd();
   }
 
   onCancel(event) {
@@ -39,14 +40,15 @@ export class AuditoriaEntidadePage implements OnInit {
 
   add(entidade: any) {
     console.log(entidade)
-    this.storage.set('auditoria', entidade);
-    this.storage.get('auditoria').then((val) => {
+    this.storage.set(entidade.id, entidade);
+    this.storage.get(entidade.id).then((val) => {
       console.log('Your age is', val);
     });
   }
 
-  teste() {
-    return;
+  getProd() {
+    this.db.getProductList().subscribe(data => {
+      console.log('list ' + JSON.stringify(data));
+    });
   }
-
 }
