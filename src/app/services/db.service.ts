@@ -25,7 +25,7 @@ export class DbService {
   constructor(private http: HttpClient, private alertCtrl: AlertController) { }
  
   async init(): Promise<void> {
-    const info = await Device.getInfo();
+    const info = await Device.getInfo();    
  
     if (info.platform === 'android') {
       try {
@@ -54,6 +54,7 @@ export class DbService {
       this.dbName = (await Storage.get({ key: DB_NAME_KEY })).value;
       await CapacitorSQLite.open({ database: this.dbName });
       this.dbReady.next(true);
+      
     }
   }
  
@@ -64,7 +65,8 @@ export class DbService {
       const jsonstring = JSON.stringify('jsonExport');
       const isValid = await CapacitorSQLite.isJsonValid({ jsonstring });
  
-      if (isValid.result) {
+      if (!isValid.result) {
+        
         this.dbName = jsonExport.database;
         await Storage.set({ key: DB_NAME_KEY, value: this.dbName });
         await CapacitorSQLite.importFromJson({ jsonstring });
@@ -84,7 +86,7 @@ export class DbService {
   getProductList() {
     return this.dbReady.pipe(
       switchMap(isReady => {
-        if (!isReady) {
+        if (isReady) {
           return of({ values: [] });
         } else {
           const statement = `SELECT 'teste' as teste FROM products;`;

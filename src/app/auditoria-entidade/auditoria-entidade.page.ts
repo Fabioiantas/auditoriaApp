@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { AuditoriaEntidadeService } from './../services/auditoria-entidade.service';
 import { timingSafeEqual } from 'crypto';
+import { timeStamp } from 'console';
 
 @Component({
   selector: 'app-auditoria-entidade',
@@ -18,10 +19,7 @@ export class AuditoriaEntidadePage implements OnInit {
               private db: DbService) { }
 
   ngOnInit() {
-    this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
-      this.entidades = data;
-    });
-    this.getProd();
+    this.getEntidades();
   }
 
   onCancel(event) {
@@ -34,21 +32,26 @@ export class AuditoriaEntidadePage implements OnInit {
 
   getEntidades() {
     this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
+      Object.keys(data).forEach(key => {
+        this.storage.get(data[key].id).then((val) =>{
+          data.splice(key, 1);
+        });
+      });
       this.entidades = data;
+      console.log('data: ' + JSON.stringify(data));
     });
   }
 
   add(entidade: any) {
-    console.log(entidade)
+    //this.storage.remove(entidade.id);
     this.storage.set(entidade.id, entidade);
-    this.storage.get(entidade.id).then((val) => {
-      console.log('Your age is', val);
-    });
-  }
-
-  getProd() {
-    this.db.getProductList().subscribe(data => {
-      console.log('list ' + JSON.stringify(data));
-    });
+    /*this.storage.get(entidade.id).then((val) => {
+      console.log('value is', val.nr_auditoria);
+      val.nr_auditoria = 'alterado';
+      this.storage.set(val.id, val);
+      console.log('new value', val);
+      
+      console.log('new delete', val);
+    });*/
   }
 }

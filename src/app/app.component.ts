@@ -57,18 +57,8 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(async () => {
-      // this.statusBar.styleDefault();
-      // this.splashScreen.hide();
-      const loading = await this.loadingCtrl.create();
-      this.db.init();
-      
-      this.db.dbReady.subscribe(isReady => {
-        if (isReady) {
-          loading.dismiss();
-          this.statusBar.styleDefault();
-          this.splashScreen.hide();
-        }
-      });
+    this.statusBar.styleDefault();
+    this.splashScreen.hide();
     });
   }
 
