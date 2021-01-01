@@ -3,10 +3,51 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Auditar</ion-title>
+    <ion-title>Auditorias</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
+  <!-- <ion-list>
+    <ion-item *ngFor="let auditoria of auditorias; let i = index">
+      <ion-badge color="primary"slot="end">11</ion-badge>
+      <ion-label>
+        <h5>{{auditoria.entidade.nm_reduzido}}</h5>
+        <h6>{{auditoria.propriedade.nm_propriedade}}</h6>
+        <p>{{auditoria.auditoria_nivel.nm_nivel}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+  <ion-list>
+    <ion-item-sliding *ngFor="let auditoria of auditorias; let i = index"  id="item+index">
+      <ion-item href="/login">
+        <ion-label>
+          <h2>{{auditoria.entidade.nm_reduzido}}</h2>
+          <p>{{auditoria.propriedade.nm_propriedade}}</p>
+          <p>{{auditoria.auditoria_nivel.nm_nivel}}</p>
+        </ion-label>
+        <ion-note slot="end">
+          Total: {{getTotalAuditados(auditoria.auditoria_entidade_items[index].auditoria_entidade_it_requisitos)}}
+        </ion-note>
+      </ion-item>
+  
+      <ion-item-options side="start">
+        <ion-item-option (click)="integrar(auditoria)">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+  
+      <ion-item-options side="end">
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+        <ion-item-option>
+          <ion-icon slot="icon-only" name="star"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>

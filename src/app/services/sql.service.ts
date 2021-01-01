@@ -16,7 +16,8 @@ export class SqlService {
 
   dbInstance: any;
 
-  constructor(private sqlite: SQLite, private platform: Platform) {
+  constructor(private sqlite: SQLite,
+              private platform: Platform) {
     this.init();
   }
 

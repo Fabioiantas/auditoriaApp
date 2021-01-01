@@ -14,8 +14,11 @@
   <ion-list>
     <ion-item *ngFor="let entidade of entidades; let i = index">
       <ion-avatar slot="start">
-        <ion-fab-button (click)="add(entidade)" size="small">
+        <ion-fab-button *ngIf="!entidade.local" (click)="add(entidade)" size="small">
           <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button *ngIf="entidade.local" (click)="remove(entidade)" size="small">
+          <ion-icon name="trash"></ion-icon>
         </ion-fab-button>
       </ion-avatar>
       <ion-label>

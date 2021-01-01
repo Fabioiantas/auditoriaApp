@@ -17,16 +17,8 @@ export class AuditoriaEntidadePage implements OnInit {
               private storage: Storage,
               private sql: SqlService) { }
 
-  async ionViewDidLoad() {
-    await this.sql.dbInstance.executeSql('CREATE TABLE IF NOT EXISTS user(id INTEGER PRIMARY KEY, name)');
-    await this.sql.dbInstance.executeSql(`INSERT INTO user(id, user) VALUES (1, 'Suraj')`);
-    const users = await this.sql.dbInstance.sqlInstance.executeSql('SELECT * FROM user');
-    console.log('teste' + users);
-  }
-
   ngOnInit() {
     this.getEntidades();
-    this.ionViewDidLoad();
   }
 
   onCancel(event) {
@@ -43,7 +35,7 @@ export class AuditoriaEntidadePage implements OnInit {
     });
   }
 
-  getEntidades() {
+  getEntidade() {
     this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
       for (let i = data.length - 1; i >= 0; i--) {
         this.entidades = data;
@@ -57,16 +49,34 @@ export class AuditoriaEntidadePage implements OnInit {
     });
   }
 
+  getEntidades() {
+    this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
+      for (let i = data.length - 1; i >= 0; i--) {
+        this.storage.get(data[i].id).then((value) => {
+          // console.log('existe ' + value);
+          if (value) {
+            data[i].local = 'true';
+            console.error('val ' + data[i].local);
+            // console.error('val ' + JSON.stringify(value));
+          }
+        });
+      }
+      this.entidades = data;
+      // console.log('entidade ' + JSON.stringify(data));
+    });
+  }
+
   add(entidade: any) {
-    // this.storage.remove(entidade.id);
     this.storage.set(entidade.id, entidade);
     this.getEntidades();
-    /*this.storage.get(entidade.id).then((val) => {
-      console.log('value is', val.nr_auditoria);
-      val.nr_auditoria = 'alterado';
-      this.storage.set(val.id, val);
-      console.log('new value', val);
-      console.log('new delete', val);
-    });*/
+  }
+
+  remove(entidade: any) {
+    this.storage.remove(entidade.id);
+    this.getEntidades();
+  }
+
+  getIconStatus() {
+
   }
 }
