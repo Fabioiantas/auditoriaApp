@@ -18,22 +18,22 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(catchError(err => {
       if ([401].indexOf(err.status) !== -1) {
        alert('Usuário ou senha inválidos.');
-        this.authenticationService.logout();
-        location.reload(true);
-        return throwError(err.error.message);
+       this.authenticationService.logout();
+       location.reload(true);
+       return throwError(err.error.message);
       }
       if ([500].indexOf(err.status) !== -1) {
        alert(err.error.message);
-        return throwError(err.message);
+       return throwError(err.message);
       }
       if ([512].indexOf(err.status) !== -1) {
        alert(err.error.message);
-        return throwError(err.message);
+       return throwError(err.message);
       }
       if ([513].indexOf(err.status) !== -1) { // SESSAO EXPIRADA
         this.sessao = false;
         this.router.navigate(['/login'], { queryParams: { message: err.error.message } });
-        //alert(err.error.message);
+        // alert(err.error.message);
         return throwError(err.message);
       }
       if ('0'.indexOf(err.status) !== -1) {

@@ -11,5 +11,9 @@ export class AuditoriaEntidadeService {
   getAuditoriaEntidadeItReqById(): Observable<any> {
     return this.http.get<any>(`${environment.baseUrl}/auth/auditoriaentidadeitreqs`);
   }
-  
+
+  getAuditoriaEntidade(): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/auth/auditoriaentidade`);
+  }
+
 }

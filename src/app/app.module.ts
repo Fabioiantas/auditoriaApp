@@ -15,6 +15,7 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { FormBuilder } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage';
+import { SqlService } from './services/sql.service';
 
 
 
@@ -34,6 +35,7 @@ import { IonicStorageModule } from '@ionic/storage';
     FormBuilder,
     AuditoriaEntidadeService,
     SQLite,
+    SqlService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

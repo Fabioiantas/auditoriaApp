@@ -8,6 +8,7 @@ import { AuditoriaEntidadePageRoutingModule } from './auditoria-entidade-routing
 
 import { AuditoriaEntidadePage } from './auditoria-entidade.page';
 
+
 @NgModule({
   imports: [
     CommonModule,

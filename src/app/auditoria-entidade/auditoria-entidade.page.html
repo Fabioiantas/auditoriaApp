@@ -12,7 +12,7 @@
     (ionCancel)="onCancel($event)">
   </ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let entidade of entidades">
+    <ion-item *ngFor="let entidade of entidades; let i = index">
       <ion-avatar slot="start">
         <ion-fab-button (click)="add(entidade)" size="small">
           <ion-icon name="add"></ion-icon>

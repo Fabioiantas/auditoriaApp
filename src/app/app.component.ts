@@ -1,5 +1,4 @@
 import { DbService } from './services/db.service';
-import { DatabaseService } from './services/database.service';
 import { Component, OnInit } from '@angular/core';
 
 import { LoadingController, Platform } from '@ionic/angular';
@@ -15,13 +14,13 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Entidades', 
+      title: 'Baixar Auditoria',
       url: '/auditoria-entidade',
       icon: 'mail'
     },
     {
-      title: 'Login',
-      url: '/login',
+      title: 'Auditorias',
+      url: '/auditoria-local',
       icon: 'paper-plane'
     },
     {
@@ -40,8 +39,8 @@ export class AppComponent implements OnInit {
       icon: 'trash'
     },
     {
-      title: 'Spam',
-      url: '/folder/Spam',
+      title: 'Login',
+      url: '/login',
       icon: 'warning'
     }
   ];

@@ -1,9 +1,8 @@
-import { DbService } from './../services/db.service';
 import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { AuditoriaEntidadeService } from './../services/auditoria-entidade.service';
-import { timingSafeEqual } from 'crypto';
-import { timeStamp } from 'console';
+import { SqlService } from '../services/sql.service';
+// import { JSDocTagName } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-auditoria-entidade',
@@ -11,46 +10,62 @@ import { timeStamp } from 'console';
   styleUrls: ['./auditoria-entidade.page.scss'],
 })
 export class AuditoriaEntidadePage implements OnInit {
-  
-  entidades: any;
+
+  entidades = [];
 
   constructor(private auditoriaEntidadeService: AuditoriaEntidadeService,
               private storage: Storage,
-              private db: DbService) { }
+              private sql: SqlService) { }
+
+  async ionViewDidLoad() {
+    await this.sql.dbInstance.executeSql('CREATE TABLE IF NOT EXISTS user(id INTEGER PRIMARY KEY, name)');
+    await this.sql.dbInstance.executeSql(`INSERT INTO user(id, user) VALUES (1, 'Suraj')`);
+    const users = await this.sql.dbInstance.sqlInstance.executeSql('SELECT * FROM user');
+    console.log('teste' + users);
+  }
 
   ngOnInit() {
     this.getEntidades();
+    this.ionViewDidLoad();
   }
 
   onCancel(event) {
     console.log(event);
   }
-  
+
   onInput(event) {
     console.log(event.detail.data);
   }
 
+  getEntidades2() {
+    this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
+      this.entidades = data;
+    });
+  }
+
   getEntidades() {
     this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
-      Object.keys(data).forEach(key => {
-        this.storage.get(data[key].id).then((val) =>{
-          data.splice(key, 1);
+      for (let i = data.length - 1; i >= 0; i--) {
+        this.entidades = data;
+        this.storage.get(data[i].id).then((value) => {
+          // console.log('existe ' + value);
+          if (value) {
+              data.splice(i, 1);
+            }
         });
-      });
-      this.entidades = data;
-      console.log('data: ' + JSON.stringify(data));
+      }
     });
   }
 
   add(entidade: any) {
-    //this.storage.remove(entidade.id);
+    // this.storage.remove(entidade.id);
     this.storage.set(entidade.id, entidade);
+    this.getEntidades();
     /*this.storage.get(entidade.id).then((val) => {
       console.log('value is', val.nr_auditoria);
       val.nr_auditoria = 'alterado';
       this.storage.set(val.id, val);
       console.log('new value', val);
-      
       console.log('new delete', val);
     });*/
   }

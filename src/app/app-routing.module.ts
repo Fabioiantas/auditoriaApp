@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'auditoria-entidade',
     loadChildren: () => import('./auditoria-entidade/auditoria-entidade.module').then( m => m.AuditoriaEntidadePageModule)
+  },  {
+    path: 'auditoria-local',
+    loadChildren: () => import('./auditoria-local/auditoria-local.module').then( m => m.AuditoriaLocalPageModule)
   }
+
 ];
 
 @NgModule({
