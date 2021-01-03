@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
+
 @Component({
   selector: 'app-auditoria-local',
   templateUrl: './auditoria-local.page.html',
@@ -33,20 +34,28 @@ export class AuditoriaLocalPage implements OnInit {
   }
 
   getTotalAuditados(requisitos: any) {
-    console.log(JSON.stringify(requisitos));
-    // const total = [];
-    // total[0] = 0;
-    // total[1] = 0;
+    // console.log(JSON.stringify(requisitos));
+    let total = 0;
+    for (const iterator of requisitos.auditoria_entidade_items) {
+      for (const iterator2 of iterator.auditoria_entidade_it_requisitos) {
+        console.log(iterator2.ie_conforme);
+        if (iterator2.ie_conforme) {
+          total = total + 1;
+        }
+      }
+    }
+    return total;
+  }
 
-    // requisitos.forEach(element => {
-    //   console.log('total?');
-    //   console.log('conforme? ' + element.ie_conforme);
-    //   if (requisitos.ie_conforme) {
-    //       total[0] = total[0] + 1;
-    //     }
-    //   total[1] = total[1] + 1;
-    // });
-    // return total;
+  getTotalRequisitos(requisitos: any) {
+    // console.log(JSON.stringify(requisitos));
+    let total = 0;
+    for (const iterator of requisitos.auditoria_entidade_items) {
+      for (const iterator2 of iterator.auditoria_entidade_it_requisitos) {
+          total = total + 1;
+      }
+    }
+    return total;
   }
 
 }

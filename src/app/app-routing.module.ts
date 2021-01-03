@@ -18,10 +18,27 @@ const routes: Routes = [
   {
     path: 'auditoria-entidade',
     loadChildren: () => import('./auditoria-entidade/auditoria-entidade.module').then( m => m.AuditoriaEntidadePageModule)
-  },  {
+  },
+  {
     path: 'auditoria-local',
     loadChildren: () => import('./auditoria-local/auditoria-local.module').then( m => m.AuditoriaLocalPageModule)
+  },
+  {
+    path: 'auditar',
+    loadChildren: () => import('./auditar/auditar.module').then( m => m.AuditarPageModule)
+  },
+  {
+    path: 'item-requisitos/:id',
+    loadChildren: () => import('./item-requisitos/item-requisitos.module').then( m => m.ItemRequisitosPageModule)
+  },  {
+    path: 'requisito',
+    loadChildren: () => import('./requisito/requisito.module').then( m => m.RequisitoPageModule)
+  },
+  {
+    path: 'page-header',
+    loadChildren: () => import('./page-header/page-header.module').then( m => m.PageHeaderPageModule)
   }
+
 
 ];
 

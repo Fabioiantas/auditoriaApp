@@ -30,7 +30,7 @@
           <p>{{auditoria.auditoria_nivel.nm_nivel}}</p>
         </ion-label>
         <ion-note slot="end">
-          Total: {{getTotalAuditados(auditoria.auditoria_entidade_items[index].auditoria_entidade_it_requisitos)}}
+          Total: {{getTotalAuditados(auditoria)}} / {{getTotalRequisitos(auditoria)}}
         </ion-note>
       </ion-item>
   

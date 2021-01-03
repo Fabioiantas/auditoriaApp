@@ -53,16 +53,12 @@ export class AuditoriaEntidadePage implements OnInit {
     this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
       for (let i = data.length - 1; i >= 0; i--) {
         this.storage.get(data[i].id).then((value) => {
-          // console.log('existe ' + value);
           if (value) {
             data[i].local = 'true';
-            console.error('val ' + data[i].local);
-            // console.error('val ' + JSON.stringify(value));
           }
         });
       }
       this.entidades = data;
-      // console.log('entidade ' + JSON.stringify(data));
     });
   }
 
