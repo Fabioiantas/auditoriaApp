@@ -28,13 +28,13 @@
           <app-requisito class="product-list" [auditoria]="auditoria" [requisito]="requisito" [i]="i" [j]="j"></app-requisito>
           
           <ion-item-options side="end">
-              <ion-item-option color="success">
+              <ion-item-option (click)="avaliar(requisito,'S')" color="success">
                 <ion-icon slot="icon-only" name="thumbs-up-outline"></ion-icon>
               </ion-item-option>
-              <ion-item-option color="danger">
+              <ion-item-option (click)="avaliar(requisito,'N')" color="danger">
                 <ion-icon slot="icon-only" name="thumbs-down-outline"></ion-icon>
               </ion-item-option>
-              <ion-item-option color="warning">
+              <ion-item-option (click)="avaliar(requisito,'A')" color="warning">
                 <ion-icon slot="icon-only" name="ban-outline"></ion-icon>
               </ion-item-option>
             </ion-item-options>

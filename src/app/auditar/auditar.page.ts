@@ -32,8 +32,6 @@ export class AuditarPage implements OnInit {
 
 
   ngOnInit() {
-    console.log('modal: ' + JSON.stringify(this.auditoria));
-    console.log('modal2: ' + JSON.stringify(this.requisito));
     this.requisitoForm.patchValue({
       ie_conforme: this.requisito.ie_conforme,
       dt_prazo_adequacao: !this.requisito.dt_prazo_adequacao ? null : moment(this.requisito.dt_prazo_adequacao).format('DD/MM/YYYY'),

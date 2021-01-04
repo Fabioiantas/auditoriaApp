@@ -1,3 +1,4 @@
+import { RequisitoLocalService } from './../services/requisito-local.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemRequisitosService } from '../services/item-requisitos.service';
@@ -14,7 +15,7 @@ export class ItemRequisitosPage implements OnInit {
   itemRequisitos: any[];
   automaticClose = false;
 
-  constructor(private itemRequisitosService: ItemRequisitosService,
+  constructor(private requisitoLocalService: RequisitoLocalService,
               private route: ActivatedRoute,
               private storage: Storage) { }
 
@@ -29,6 +30,14 @@ export class ItemRequisitosPage implements OnInit {
       this.itemRequisitos = value.auditoria_entidade_items;
       this.auditoria = value;
       this.itemRequisitos[0].open = true;
+    });
+  }
+
+  avaliar(requisito: any, situacao: string) {
+    requisito.ie_conforme = situacao;
+    this.requisitoLocalService.saveLocalRequisito(this.auditoria.id, requisito).subscribe(data => {
+      this.auditoria = data;
+      console.log(situacao + '-' + JSON.stringify(this.auditoria));
     });
   }
 

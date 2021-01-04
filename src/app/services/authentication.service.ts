@@ -10,8 +10,16 @@ import { CredentialUser } from '../models/credential-user';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-  private currentUserSubject: BehaviorSubject<CredentialUser>;
+  // private currentUserSubject: BehaviorSubject<CredentialUser>;
   public currentUser: Observable<CredentialUser>;
+
+  //public filterMonitorameto: FormGroup = null;
+  //public filterSourceBehavior = new BehaviorSubject(this.filterMonitorameto);
+  //currentFilter = this.filterSourceBehavior.asObservable();
+  
+  public user: CredentialUser = null;
+  public currentUserSubject = new BehaviorSubject(this.user);
+  currentFilter = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
@@ -23,6 +31,10 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
+  changeFilter(user: CredentialUser) {
+    this.currentUserSubject.next(user);
+  }
+
   login(credentials) {
     return this.http.post<any>(environment.baseUrl + '/login', { email: credentials.email, password: credentials.password })
       .pipe(map(user => {
@@ -31,8 +43,9 @@ export class AuthenticationService {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
 
           localStorage.setItem('currentUser', JSON.stringify(user));
+          console.log('new tokem ' + user.token);
           this.setCurrentUser();
-          // this.currentUserSubject.next(user);
+          this.currentUserSubject.next(user);
           // console.log('atuh ' + JSON.stringify(user));
         }
         return user;
