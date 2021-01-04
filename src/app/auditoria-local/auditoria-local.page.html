@@ -11,19 +11,9 @@
   <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"
     (ionCancel)="onCancel($event)">
   </ion-searchbar>
-  <!-- <ion-list>
-    <ion-item *ngFor="let auditoria of auditorias; let i = index">
-      <ion-badge color="primary"slot="end">11</ion-badge>
-      <ion-label>
-        <h5>{{auditoria.entidade.nm_reduzido}}</h5>
-        <h6>{{auditoria.propriedade.nm_propriedade}}</h6>
-        <p>{{auditoria.auditoria_nivel.nm_nivel}}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list> -->
   <ion-list>
     <ion-item-sliding *ngFor="let auditoria of auditorias; let i = index"  id="item+index">
-      <ion-item href="/login">
+      <ion-item (click)="itenRequisito(auditoria)">
         <ion-label>
           <h2>{{auditoria.entidade.nm_reduzido}}</h2>
           <p>{{auditoria.propriedade.nm_propriedade}}</p>

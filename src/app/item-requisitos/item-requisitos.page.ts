@@ -10,6 +10,7 @@ import { Storage } from '@ionic/storage';
 })
 export class ItemRequisitosPage implements OnInit {
 
+  auditoria: any;
   itemRequisitos: any[];
   automaticClose = false;
 
@@ -26,6 +27,7 @@ export class ItemRequisitosPage implements OnInit {
   getItemRequisitos(id: any) {
     this.storage.get(id).then((value) => {
       this.itemRequisitos = value.auditoria_entidade_items;
+      this.auditoria = value;
       this.itemRequisitos[0].open = true;
     });
   }

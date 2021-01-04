@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SQLite } from '@ionic-native/sqlite/ngx';
 
 import { Platform } from '@ionic/angular';
-import { isEmpty, isNull, keys, sortBy, get, parseInt } from 'lodash';
+// import { isEmpty, isNull, keys, sortBy, get, parseInt } from 'lodash';
 import { browserDBInstance } from '../browser';
 
 declare var window: any;
@@ -25,6 +25,13 @@ export class SqlService {
     if (!this.platform.is('cordova')) {
       const db = window.openDatabase(SQL_DB_NAME, '1.0', 'DEV', 5 * 1024 * 1024);
       this.dbInstance = browserDBInstance(db);
+      this.dbInstance.executeSql('CREATE TABLE IF NOT EXISTS requisito(id INTEGER PRIMARY KEY, name)');
+      this.dbInstance.executeSql(`INSERT INTO requisito(id, user) VALUES (1, 'Suraj')`);
+      const users = this.dbInstance.executeSql('SELECT * FROM requisito');
+      users.then((value) => {
+        console.log('promisse: ' + JSON.stringify(value));
+      });
+      console.log(JSON.stringify('users: ' + users));
     } else {
       this.dbInstance = await this.sqlite.create({
         name: SQL_DB_NAME,

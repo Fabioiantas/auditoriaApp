@@ -14,8 +14,7 @@ export class AuditoriaEntidadePage implements OnInit {
   entidades = [];
 
   constructor(private auditoriaEntidadeService: AuditoriaEntidadeService,
-              private storage: Storage,
-              private sql: SqlService) { }
+              private storage: Storage) { }
 
   ngOnInit() {
     this.getEntidades();
@@ -40,7 +39,6 @@ export class AuditoriaEntidadePage implements OnInit {
       for (let i = data.length - 1; i >= 0; i--) {
         this.entidades = data;
         this.storage.get(data[i].id).then((value) => {
-          // console.log('existe ' + value);
           if (value) {
               data.splice(i, 1);
             }
@@ -72,7 +70,4 @@ export class AuditoriaEntidadePage implements OnInit {
     this.getEntidades();
   }
 
-  getIconStatus() {
-
-  }
 }

@@ -16,6 +16,7 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { FormBuilder } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage';
 import { SqlService } from './services/sql.service';
+import { RequisitoLocalService } from './services/requisito-local.service';
 
 
 
@@ -36,6 +37,7 @@ import { SqlService } from './services/sql.service';
     AuditoriaEntidadeService,
     SQLite,
     SqlService,
+    RequisitoLocalService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

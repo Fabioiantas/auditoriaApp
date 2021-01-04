@@ -1,12 +1,48 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>Auditar</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="salvar(requisito)" [disabled]="requisitoForm.invalid" color="success">Salvar</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()" color="danger">Sair</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>{{auditoria.auditoria_nivel.nm_nivel}}</ion-card-subtitle>
+      <ion-card-title>{{auditoria.propriedade.nm_propriedade}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+     {{requisito.auditoria_requisito.ds_requisito}}
+    </ion-card-content>
+  </ion-card>
+  
+  <i-form [formGroup]="requisitoForm">
 
+    <ion-card>
+      <ion-item>
+        <ion-label>Situação</ion-label>
+        <ion-select required formControlName="ie_conforme" placeholder="Select One">
+          <ion-select-option value="S">Conforme</ion-select-option>
+          <ion-select-option value="N">Não Conforme</ion-select-option>
+          <ion-select-option value="A">Não se Aplica</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Prazo Adequação</ion-label>
+        <ion-datetime required formControlName="dt_prazo_adequacao" displayFormat="DD/MM/YYYY"></ion-datetime>
+      </ion-item>
+      <ion-item class="ion-activated">
+        <ion-label position="floating">Observações</ion-label>
+        <ion-textarea required formControlName="ds_observacao"></ion-textarea>
+      </ion-item>
+  
+      
+    </ion-card>
+  </i-form>
 </ion-content>

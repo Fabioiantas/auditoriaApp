@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 
 
@@ -10,7 +11,8 @@ import { Storage } from '@ionic/storage';
 export class AuditoriaLocalPage implements OnInit {
   auditorias: any;
 
-  constructor(private storage: Storage) { }
+  constructor(private storage: Storage,
+              private router: Router) { }
 
   ngOnInit() {
    this.getAll().then((value) => {
@@ -22,7 +24,6 @@ export class AuditoriaLocalPage implements OnInit {
     const items = [];
     return this.storage.forEach((v) => {
         items.push((v));
-        // console.log(v);
     }).then(() => {
         return items;
     });
@@ -30,15 +31,12 @@ export class AuditoriaLocalPage implements OnInit {
 
   integrar(auditoria: any) {
     alert('Auditoria Integrada com sucesso!');
-    console.log(JSON.stringify(auditoria));
   }
 
   getTotalAuditados(requisitos: any) {
-    // console.log(JSON.stringify(requisitos));
     let total = 0;
     for (const iterator of requisitos.auditoria_entidade_items) {
       for (const iterator2 of iterator.auditoria_entidade_it_requisitos) {
-        console.log(iterator2.ie_conforme);
         if (iterator2.ie_conforme) {
           total = total + 1;
         }
@@ -48,7 +46,6 @@ export class AuditoriaLocalPage implements OnInit {
   }
 
   getTotalRequisitos(requisitos: any) {
-    // console.log(JSON.stringify(requisitos));
     let total = 0;
     for (const iterator of requisitos.auditoria_entidade_items) {
       for (const iterator2 of iterator.auditoria_entidade_it_requisitos) {
@@ -56,6 +53,10 @@ export class AuditoriaLocalPage implements OnInit {
       }
     }
     return total;
+  }
+
+  itenRequisito(auditoria: any) {
+    this.router.navigate([`/item-requisitos/${auditoria.id}`]);
   }
 
 }

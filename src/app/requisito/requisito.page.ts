@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { AuditarPage } from '../auditar/auditar.page';
+import { RequisitoLocalService } from '../services/requisito-local.service';
 
 @Component({
   selector: 'app-requisito',
@@ -9,14 +11,15 @@ import { ToastController } from '@ionic/angular';
 })
 export class RequisitoPage implements OnInit {
 
-  // tslint:disable-next-line:no-input-rename
-  @Input('requisito') requisito: any;
-  // tslint:disable-next-line:no-input-rename
-  @Input('i') i: any;
-  // tslint:disable-next-line:no-input-rename
-  @Input('j') j: any;
+  @Input() auditoria: any;
+  @Input() requisito: any;
+  @Input() i: any;
+  @Input() j: any;
 
-  constructor(private toastCtrl: ToastController, private router: Router) { }
+  constructor(private toastCtrl: ToastController,
+              private router: Router,
+              private requisitoLocalService: RequisitoLocalService,
+              private modalController: ModalController) { }
 
   ngOnInit() {
   }
@@ -29,11 +32,20 @@ export class RequisitoPage implements OnInit {
   }
 
   async auditar(requisito: any) {
-    const toast = await this.toastCtrl.create({
-      message: `Auditar : ${requisito.ie_conforme}`,
-      duration: 2000
+    this.requisitoLocalService.changeLocalRequisito(requisito);
+    this.router.navigate([`/auditar`]);
+  }
+
+  async presentModal(requisito: any) {
+    const modal = await this.modalController.create({
+      component: AuditarPage,
+      cssClass: 'my-custom-class',
+      componentProps: {
+        auditoria: this.auditoria,
+        requisito: this.requisito
+      }
     });
-    toast.present();
+    return await modal.present();
   }
 
 }

@@ -30,7 +30,8 @@ const routes: Routes = [
   {
     path: 'item-requisitos/:id',
     loadChildren: () => import('./item-requisitos/item-requisitos.module').then( m => m.ItemRequisitosPageModule)
-  },  {
+  },
+  {
     path: 'requisito',
     loadChildren: () => import('./requisito/requisito.module').then( m => m.RequisitoPageModule)
   },
