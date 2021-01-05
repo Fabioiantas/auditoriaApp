@@ -15,10 +15,10 @@
     <ion-item *ngFor="let entidade of entidades; let i = index">
       <ion-avatar slot="start">
         <ion-fab-button *ngIf="!entidade.local" (click)="add(entidade)" size="small">
-          <ion-icon name="add"></ion-icon>
+          <ion-icon name="cloud-download-outline"></ion-icon>
         </ion-fab-button>
-        <ion-fab-button *ngIf="entidade.local" (click)="remove(entidade)" size="small">
-          <ion-icon name="trash"></ion-icon>
+        <ion-fab-button *ngIf="entidade.local" (click)="remove(entidade)" color="danger" size="small">
+          <ion-icon name="remove-outline"></ion-icon>
         </ion-fab-button>
       </ion-avatar>
       <ion-label>

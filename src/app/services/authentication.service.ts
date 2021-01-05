@@ -11,20 +11,22 @@ import { CredentialUser } from '../models/credential-user';
 export class AuthenticationService {
 
   // private currentUserSubject: BehaviorSubject<CredentialUser>;
-  public currentUser: Observable<CredentialUser>;
+  // public currentUser: Observable<CredentialUser>;
 
-  //public filterMonitorameto: FormGroup = null;
-  //public filterSourceBehavior = new BehaviorSubject(this.filterMonitorameto);
-  //currentFilter = this.filterSourceBehavior.asObservable();
-  
-  public user: CredentialUser = null;
-  public currentUserSubject = new BehaviorSubject(this.user);
-  currentFilter = this.currentUserSubject.asObservable();
+  // public filterMonitorameto: FormGroup = null;
+  // public filterSourceBehavior = new BehaviorSubject(this.filterMonitorameto);
+  // currentFilter = this.filterSourceBehavior.asObservable();
+
+  // public user: CredentialUser = null;
+  // public currentUserSubject = new BehaviorSubject(this.user);
+  // currentFilter = this.currentUserSubject.asObservable();
+
+  public currentUserSubject: BehaviorSubject<CredentialUser> = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
 
   constructor(private http: HttpClient, private router: Router) {
-    this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
-    this.router = router;
+    // this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
+    // this.currentUser = this.currentUserSubject.asObservable();
+    // this.router = router;
   }
 
   public get currentUserValue(): CredentialUser {
@@ -43,16 +45,13 @@ export class AuthenticationService {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
 
           localStorage.setItem('currentUser', JSON.stringify(user));
-          console.log('new tokem ' + user.token);
-          this.setCurrentUser();
           this.currentUserSubject.next(user);
-          // console.log('atuh ' + JSON.stringify(user));
         }
         return user;
       }));
   }
 
-   getCurrentUser() {
+  getCurrentUser() {
      return this.http.get<any>(environment.baseUrl + '/user');
    }
 
@@ -74,8 +73,8 @@ export class AuthenticationService {
     return this.http.post(environment.baseUrl + '/change-password', data);
   }
 
-  setCurrentUser() {
-    this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
-  }
+  // setCurrentUser() {
+  //   this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
+  // }
 
 }

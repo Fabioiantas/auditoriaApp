@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
-import { RequisitoLocalService } from '../services/requisito-local.service';
 
 @Component({
   selector: 'app-auditar',
@@ -23,10 +22,7 @@ export class AuditarPage implements OnInit {
     ds_observacao: new FormControl('', Validators.required)
   });
 
-  constructor(private requisitoLocalService: RequisitoLocalService,
-              private router: ActivatedRoute,
-              private route: Router,
-              private storage: Storage,
+  constructor(private storage: Storage,
               private modalCtrl: ModalController,
               private toastController: ToastController) { }
 
