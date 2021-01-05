@@ -32,7 +32,7 @@ export class RequisitoPage implements OnInit {
   }
 
   async auditar(requisito: any) {
-    this.requisitoLocalService.changeLocalRequisito(requisito);
+    // this.requisitoLocalService.changeLocalRequisito(requisito);
     this.router.navigate([`/auditar`]);
   }
 

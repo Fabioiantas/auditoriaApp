@@ -1,11 +1,11 @@
-<ion-item lines="full">
+<ion-item lines="full" class="ion-no-padding">
   <ion-row no-padding align-items-left>
     <ion-col (click)="presentModal()">
       <ion-text *ngIf="!requisito.ie_conforme" color="medium">{{i+1}}.{{j+1}} - {{requisito.auditoria_requisito.ds_requisito}}</ion-text>
       <ion-text *ngIf="requisito.ie_conforme == 'S'" color="success">{{i+1}}.{{j+1}} - {{requisito.auditoria_requisito.ds_requisito}}</ion-text>
       <ion-text *ngIf="requisito.ie_conforme == 'N'" color="danger">{{i+1}}.{{j+1}} - {{requisito.auditoria_requisito.ds_requisito}}</ion-text>
       <ion-text *ngIf="requisito.ie_conforme == 'A'" color="warning">
-        <strong>  {{i+1}}.{{j+1}} - {{requisito.auditoria_requisito.ds_requisito}}</strong>
+          <strong>  {{i+1}}.{{j+1}} - {{requisito.auditoria_requisito.ds_requisito}}</strong>
       </ion-text>
     </ion-col>
   </ion-row>
