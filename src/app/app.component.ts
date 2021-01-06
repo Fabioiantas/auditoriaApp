@@ -1,10 +1,8 @@
-import { DbService } from './services/db.service';
 import { Component, OnInit } from '@angular/core';
 
-import { LoadingController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AuthenticationService } from './services/authentication.service';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -53,9 +51,6 @@ export class AppComponent implements OnInit {
   constructor(private platform: Platform,
               private splashScreen: SplashScreen,
               private statusBar: StatusBar,
-              private db: DbService,
-              private loadingCtrl: LoadingController,
-              private authenticationService: AuthenticationService,
               private storage: Storage) {
     this.initializeApp();
   }

@@ -34,6 +34,7 @@
     "cordova-sqlite-storage": "^5.1.0",
     "moment": "^2.29.1",
     "rxjs": "~6.5.5",
+    "ts-md5": "^1.2.7",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

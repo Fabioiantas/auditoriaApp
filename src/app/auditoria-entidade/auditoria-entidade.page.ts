@@ -49,6 +49,7 @@ export class AuditoriaEntidadePage implements OnInit {
 
   getEntidades() {
     this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
+     // console.log('GETENTIDADE: '+ JSON.stringify(data));
       for (let i = data.length - 1; i >= 0; i--) {
         this.storage.get(data[i].id).then((value) => {
           if (value) {
