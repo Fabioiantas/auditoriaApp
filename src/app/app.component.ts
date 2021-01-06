@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AuthenticationService } from './services/authentication.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-root',
@@ -46,11 +48,15 @@ export class AppComponent implements OnInit {
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
+  currentUser: any;
+
   constructor(private platform: Platform,
               private splashScreen: SplashScreen,
               private statusBar: StatusBar,
               private db: DbService,
-              private loadingCtrl: LoadingController) {
+              private loadingCtrl: LoadingController,
+              private authenticationService: AuthenticationService,
+              private storage: Storage) {
     this.initializeApp();
   }
 
@@ -66,5 +72,8 @@ export class AppComponent implements OnInit {
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
+    this.storage.get('currentUser').then((value) => {
+      this.currentUser = JSON.parse(value);
+    });
   }
 }

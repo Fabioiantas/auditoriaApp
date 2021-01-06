@@ -3,38 +3,28 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-
 import { Router } from '@angular/router';
 import { CredentialUser } from '../models/credential-user';
+import { Storage } from '@ionic/storage';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-  // private currentUserSubject: BehaviorSubject<CredentialUser>;
-  // public currentUser: Observable<CredentialUser>;
+  private currentUserSubject: BehaviorSubject<CredentialUser>;
+  public currentUser: Observable<CredentialUser>;
 
-  // public filterMonitorameto: FormGroup = null;
-  // public filterSourceBehavior = new BehaviorSubject(this.filterMonitorameto);
-  // currentFilter = this.filterSourceBehavior.asObservable();
+  constructor(private http: HttpClient,
+              private router: Router,
+              private storage: Storage) {
 
-  // public user: CredentialUser = null;
-  // public currentUserSubject = new BehaviorSubject(this.user);
-  // currentFilter = this.currentUserSubject.asObservable();
-
-  public currentUserSubject: BehaviorSubject<CredentialUser> = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
-
-  constructor(private http: HttpClient, private router: Router) {
+    this.currentUserSubject = new BehaviorSubject<CredentialUser>(null);
     // this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
-    // this.currentUser = this.currentUserSubject.asObservable();
-    // this.router = router;
+    this.currentUser = this.currentUserSubject.asObservable();
+    this.router = router;
   }
 
   public get currentUserValue(): CredentialUser {
     return this.currentUserSubject.value;
-  }
-
-  changeFilter(user: CredentialUser) {
-    this.currentUserSubject.next(user);
   }
 
   login(credentials) {
@@ -43,15 +33,16 @@ export class AuthenticationService {
         // login successful if there's a jwt token in the response
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
-
           localStorage.setItem('currentUser', JSON.stringify(user));
+          this.storage.set('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
+          // console.log('atuh ' + JSON.stringify(user));
         }
         return user;
       }));
   }
 
-  getCurrentUser() {
+   getCurrentUser() {
      return this.http.get<any>(environment.baseUrl + '/user');
    }
 
@@ -72,9 +63,5 @@ export class AuthenticationService {
   resetPassword(data) {
     return this.http.post(environment.baseUrl + '/change-password', data);
   }
-
-  // setCurrentUser() {
-  //   this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
-  // }
 
 }

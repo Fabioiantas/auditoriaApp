@@ -18,8 +18,8 @@ export class AuthGuard implements CanActivate {
       if (route.data.roles && route.data.roles.indexOf(currentUser.user.role) === -1) {
         // role not authorised so redirect to home page
        alert('Você não tem permissão para acessar essa página!');
-        this.router.navigate(['/']);
-        return false;
+       this.router.navigate(['/']);
+       return false;
       }
 
       // authorised so return true

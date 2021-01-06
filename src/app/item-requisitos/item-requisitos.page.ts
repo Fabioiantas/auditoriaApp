@@ -14,6 +14,7 @@ export class ItemRequisitosPage implements OnInit {
   auditoria: any;
   itemRequisitos: any[];
   automaticClose = false;
+  public folder: string;
 
   constructor(private requisitoLocalService: RequisitoLocalService,
               private route: ActivatedRoute,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { Key } from 'protractor';
 
 
 @Component({
@@ -22,8 +23,10 @@ export class AuditoriaLocalPage implements OnInit {
 
   getAll() {
     const items = [];
-    return this.storage.forEach((v) => {
-        items.push((v));
+    return this.storage.forEach((value, key, index) => {
+      if (key !== 'currentUser') {
+        items.push((value));
+      }
     }).then(() => {
         return items;
     });
