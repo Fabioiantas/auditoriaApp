@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CredentialUser } from '../models/credential-user';
 import { Md5 } from 'ts-md5';
+import { Storage } from '@ionic/storage';
 
 
 @Injectable({ providedIn: 'root' })
@@ -15,9 +16,13 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<CredentialUser>;
   public currentUser: Observable<CredentialUser>;
 
-  constructor(private http: HttpClient, private loginService: LoginService) {
-    this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
-    this.currentUser = this.currentUserSubject.asObservable();
+  constructor(private http: HttpClient, private loginService: LoginService, private storage: Storage) {
+    this.storage.get('currentUser').then((user) => {
+      this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(user));
+      this.loginService.changeCurrentUser(user);
+    });
+    // this.currentUserSubject = new BehaviorSubject<CredentialUser>(JSON.parse(localStorage.getItem('currentUser')));
+    // this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get currentUserValue(): CredentialUser {
@@ -34,6 +39,7 @@ export class AuthenticationService {
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
+          this.storage.set('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
           this.loginService.changeCurrentUser(user);
         }
@@ -43,6 +49,7 @@ export class AuthenticationService {
 
   logout() {
     localStorage.removeItem('currentUser');
+    this.storage.remove('currentUser');
     this.currentUserSubject.next(null);
   }
 }

@@ -18,6 +18,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { SqlService } from './services/sql.service';
 import { RequisitoLocalService } from './services/requisito-local.service';
 import { LoginService } from './services/login.service';
+import { HTTP } from '@ionic-native/http/ngx';
 
 
 
@@ -40,6 +41,7 @@ import { LoginService } from './services/login.service';
     SqlService,
     RequisitoLocalService,
     LoginService,
+    HTTP,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

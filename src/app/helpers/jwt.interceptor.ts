@@ -8,17 +8,22 @@ import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
+  
+  currentUser: any;
 
   constructor(private authenticationService: AuthenticationService, private loginService: LoginService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const currentUser = this.authenticationService.currentUserValue;
-    
-      if (currentUser && currentUser.token) {
+
+    this.loginService.currentUser.subscribe(data => {
+      this.currentUser = data;
+    });
+    console.log('intercept user: ' + JSON.stringify(this.currentUser));
+      if (this.currentUser && this.currentUser.token) {
         request = request.clone({
           setHeaders: {
-            Authorization: `Bearer ${currentUser.token}`
+            Authorization: `Bearer ${this.currentUser.token}`
           }
         });
       }
