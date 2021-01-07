@@ -1,7 +1,9 @@
+import { DatabaseService } from './../services/database.service';
 import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { AuditoriaEntidadeService } from './../services/auditoria-entidade.service';
 import { SqlService } from '../services/sql.service';
+import { ThrowStmt } from '@angular/compiler';
 // import { JSDocTagName } from '@angular/compiler/src/output/output_ast';
 
 @Component({
@@ -12,12 +14,22 @@ import { SqlService } from '../services/sql.service';
 export class AuditoriaEntidadePage implements OnInit {
 
   entidades = [];
+  data: any[] = []
 
   constructor(private auditoriaEntidadeService: AuditoriaEntidadeService,
-              private storage: Storage) { }
+              private storage: Storage,
+              private databaseService: DatabaseService) { }
 
   ngOnInit() {
     this.getEntidades();
+    this.databaseService.dbState().subscribe((res) => {
+      if(res){
+        this.databaseService.fetchAuditoria().subscribe(item => {
+          this.data = item
+          console.log('data ' + JSON.stringify(item));
+        });
+      }
+    });
   }
 
   onCancel(event) {
@@ -63,6 +75,11 @@ export class AuditoriaEntidadePage implements OnInit {
 
   add(entidade: any) {
     this.storage.set(entidade.id, entidade);
+    entidade.auditoria_entidade_items.forEach(itens => {
+      itens.auditoria_entidade_it_requisitos.forEach(requisitos => {
+        this.databaseService.insertAuditoria(requisitos);
+      });
+    });
     this.getEntidades();
   }
 
