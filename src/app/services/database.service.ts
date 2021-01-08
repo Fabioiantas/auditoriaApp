@@ -147,9 +147,12 @@ export class DatabaseService {
       for (let i = 0; i < res.rows.length; i++) {
         items.push({
           id: res.rows.item(i).id,
-          artist_name: res.rows.item(i).artist_name,
-          song_name: res.rows.item(i).song_name
+          nr_auditoria: res.rows.item(i).nr_auditoria,
+          entidade_id: res.rows.item(i).entidade_id,
+          propriedade_id: res.rows.item(i).propriedade_id,
+          auditoria_nivel_id: res.rows.item(i).auditoria_nivel_id
         });
+        console.log(JSON.stringify(items));
       }
     }
     this.auditoriaListSubject.next(items);

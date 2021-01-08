@@ -137,15 +137,7 @@ export class AuditoriaEntidadePage implements OnInit {
 
   selectAuditorias() {
     this.databaseService.selectAuditorias().then((data: any) => {
-      console.log('####################### ' + data.item);
-      if (data.item.length > 0) {
-        let auditoria: any[] = [];
-        for (var i = 0; i < data.item.length; i++) {
-          var row = data.item(i);
-          auditoria.push(row);
-          console.log('## ' + JSON.stringify(data.item(i)));
-        }
-      }
+     console.log('select auditoria');
     });
   }
 
