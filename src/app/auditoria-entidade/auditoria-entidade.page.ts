@@ -71,61 +71,57 @@ export class AuditoriaEntidadePage implements OnInit {
     });
   }
 
-  add(entidade: any) {
-    this.storage.set(entidade.id, entidade);
-    entidade.auditoria_entidade_items.forEach(itens => {
-      itens.auditoria_entidade_it_requisitos.forEach(() => {
+  add(auditoria: any) {
+    this.storage.set(auditoria.id, auditoria);
+    auditoria.auditoria_entidade_items.forEach(itens => {
+      itens.auditoria_entidade_it_requisitos.forEach((requisito) => {
         // tslint:disable-next-line:no-shadowed-variable
-        const row = entidade.map(row => ({
-          auditoria_entidade_id: row.auditoria_entidade_id,
-          nr_auditoria: entidade.nr_auditoria,
-          entidade_id: entidade.entidade_id,
-          cd_entidade: entidade.entidade.cd_entidade,
-          nm_entidade: entidade.entidade.nm_entidade,
-          nm_reduzido: entidade.entidade.nm_reduzido,
-          nr_cnpj: entidade.entidade.nr_cnpj,
-          nr_cpf: entidade.entidade.nr_cpf,
-          ds_endereco: entidade.entidade.ds_endereco,
-          email: entidade.entidade.email,
-          nr_telefone: entidade.entidade.nr_telefone,
-          // propriedade
-          propriedade_id: entidade.propriedade.propriedade_id,
-          nr_propriedade: entidade.propriedade.nr_propriedade,
-          nm_propriedade: entidade.propriedade.nm_propriedade,
-          ds_endereco_propriedade: entidade.propriedade.ds_endereco,
-          // nivel
-          auditoria_nivel_id: entidade.auditoria_nivel_id,
-          nr_nivel_auditoria: entidade.auditoria_nivel.nr_nivel_auditoria,
-          tipo_atividade_id: entidade.auditoria_nivel.tipo_atividade_id,
-          nm_tipo_atividade: entidade.auditoria_nivel.nm_tipo_atividade,
-          nm_nivel: entidade.auditoria_nivel.nm_nivel,
-          ds_nivel: entidade.auditoria_nivel.ds_nivel,
-          dt_inicio: entidade.dt_inicio,
-          dt_fim: entidade.dt_fim,
-          dt_prazo: entidade.dt_prazo,
-          dt_realizada: entidade.dt_realizada,
-          dt_finalizada: entidade.dt_finalizada,
-          dt_validade: entidade.dt_validade,
-          // entidade_item,
-          auditoria_entidade_item_id: row.auditoria_entidade_item_id,
-          auditoria_item_id: itens.auditoria_item_id,
-          ds_item: itens.ds_item,
-          nr_porcentagem: itens.nr_porcentagem,
-          // entidade_item_requisito,
-          id: row.id,
-          ds_requisito: row.ds_requisito,
-          auditoria_requisito_id: row.auditoria_requisito_id,
-          classificacao_requisito_id: row.classificacao_requisito_id,
-          nm_classificacao: row.nm_classificacao,
-          ds_observacao: row.ds_observacao,
-          nr_peso: row.nr_peso,
-          ds_orientacao: row.ds_orientacao,
-          ie_evidencia: row.ie_evidencia,
-          ds_situacao: row.ds_situacao,
-          ie_conforme: row.ie_conforme,
-          dt_prazo_adequacao: row.dt_prazo_adequacao,
-          dt_avaliacao: row.dt_avaliacao
-        }));
+        const row = [
+          auditoria.auditoria_entidade_id,
+          auditoria.nr_auditoria,
+          auditoria.entidade_id,
+          auditoria.entidade.cd_entidade,
+          auditoria.entidade.nm_entidade,
+          auditoria.entidade.nm_reduzido,
+          auditoria.entidade.nr_cnpj,
+          auditoria.entidade.nr_cpf,
+          auditoria.entidade.ds_endereco,
+          auditoria.entidade.email,
+          auditoria.entidade.nr_telefone,
+          auditoria.propriedade_id,
+          auditoria.propriedade.nr_propriedade,
+          auditoria.propriedade.nm_propriedade,
+          auditoria.propriedade.ds_endereco_propriedade,
+          auditoria.auditoria_nivel_id,
+          auditoria.auditoria_nivel.nr_nivel_auditoria,
+          auditoria.auditoria_nivel.tipo_atividade_id,
+          null,
+          auditoria.auditoria_nivel.nm_nivel,
+          auditoria.auditoria_nivel.ds_nivel,
+          auditoria.dt_inicio,
+          auditoria.dt_fim,
+          auditoria.dt_prazo,
+          auditoria.dt_realizada,
+          auditoria.dt_finalizada,
+          auditoria.dt_validade,
+          itens.id,
+          itens.auditoria_item_id,
+          itens.ds_item,
+          itens.nr_porcentagem,
+          requisito.id,
+          requisito.ds_requisito,
+          requisito.auditoria_requisito_id,
+          requisito.classificacao_requisito_id,
+          requisito.nm_classificacao,
+          requisito.ds_observacao,
+          requisito.nr_peso,
+          requisito.ds_orientacao,
+          requisito.ie_evidencia,
+          requisito.ds_situacao,
+          requisito.ie_conforme,
+          requisito.dt_prazo_adequacao,
+          requisito.dt_avaliacao
+        ];
         this.databaseService.insertAuditoria(row);
       });
     });

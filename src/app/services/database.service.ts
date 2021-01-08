@@ -15,7 +15,7 @@ export class DatabaseService {
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   auditoriaTable = 'CREATE TABLE IF NOT EXISTS auditoria (' +
-    // entidade_auditoria
+    'id INTEGER PRIMARY KEY AUTOINCREMENT,' +
     'auditoria_entidade_id integer,' +
     'nr_auditoria          text,' +
     'entidade_id           text,' +
@@ -27,12 +27,10 @@ export class DatabaseService {
     'ds_endereco           text,' +
     'email                 text,' +
     'nr_telefone           text,' +
-    // propriedade
     'propriedade_id        integer,' +
     'nr_propriedade        integer,' +
     'nm_propriedade        text,' +
-    'ds_endereco           text,' +
-    // nivel
+    'ds_endereco_propriedade text,' +
     'auditoria_nivel_id    integer,' +
     'nr_nivel_auditoria    text,' +
     'tipo_atividade_id     text,' +
@@ -45,15 +43,12 @@ export class DatabaseService {
     'dt_realizada          text,' +
     'dt_finalizada         text,' +
     'dt_validade           text,' +
-    // entidade_item
     'auditoria_entidade_item_id integer,' +
     'auditoria_item_id          integer,' +
     'ds_item                    text,' +
     'nr_porcentagem             real,' +
-    // entidade_item_requisito
-    'id integer                 primary key,' +
+    'entidade_item_requisito_id integer,' +
     'ds_requisito               text,' +
-    'auditoria_entidade_item_id integer,' +
     'auditoria_requisito_id     integer,' +
     'classificacao_requisito_id integer,' +
     'nm_classificacao           text,' +
@@ -64,62 +59,56 @@ export class DatabaseService {
     'ds_situacao                text,' +
     'ie_conforme                text,' +
     'dt_prazo_adequacao         text,' +
-    'dt_avaliacao               text,' +
+    'dt_avaliacao               text' +
     ')';
 
   auditoriaInsert = 'INSERT INTO auditoria (' +
-        'auditoria_entidade_id,' +
-        'nr_auditoria,' +
-        'entidade_id,' +
-        'cd_entidade,' +
-        'nm_entidade,' +
-        'nm_reduzido,' +
-        'nr_cnpj,' +
-        'nr_cpf,' +
-        'ds_endereco,' +
-        'email,' +
-        'nr_telefone,' +
-        // propriedade
-        'propriedade_id,' +
-        'nr_propriedade,' +
-        'nm_propriedade,' +
-        'ds_endereco,' +
-        // nivel
-        'auditoria_nivel_id,' +
-        'nr_nivel_auditoria,' +
-        'tipo_atividade_id,' +
-        'nm_tipo_atividade,' +
-        'nm_nivel,' +
-        'ds_nivel,' +
-        'dt_inicio,' +
-        'dt_fim,' +
-        'dt_prazo,' +
-        'dt_realizada,' +
-        'dt_finalizada,' +
-        'dt_validade,' +
-        // entidade_item
-        'auditoria_entidade_item_id,' +
-        'auditoria_item_id,' +
-        'ds_item,' +
-        'nr_porcentagem,' +
-        // entidade_item_requisito
-        'id,' +
-        'ds_requisito,' +
-        'auditoria_entidade_item_id,' +
-        'auditoria_requisito_id,' +
-        'classificacao_requisito_id,' +
-        'nm_classificacao,' +
-        'ds_observacao,' +
-        'nr_peso,' +
-        'ds_orientacao,' +
-        'ie_evidencia,' +
-        'ds_situacao,' +
-        'ie_conforme,' +
-        'dt_prazo_adequacao,' +
-        'dt_avaliacao,' +
-        'dt_avaliacao)' +
+                    'auditoria_entidade_id,' +
+                    'nr_auditoria,' +
+                    'entidade_id,' +
+                    'cd_entidade,' +
+                    'nm_entidade,' +
+                    'nm_reduzido,' +
+                    'nr_cnpj,' +
+                    'nr_cpf,' +
+                    'ds_endereco,' +
+                    'email,' +
+                    'nr_telefone,' +
+                    'propriedade_id,' +
+                    'nr_propriedade,' +
+                    'nm_propriedade,' +
+                    'ds_endereco_propriedade,' +
+                    'auditoria_nivel_id,' +
+                    'nr_nivel_auditoria,' +
+                    'tipo_atividade_id,' +
+                    'nm_tipo_atividade,' +
+                    'nm_nivel,' +
+                    'ds_nivel,' +
+                    'dt_inicio,' +
+                    'dt_fim,' +
+                    'dt_prazo,' +
+                    'dt_realizada,' +
+                    'dt_finalizada,' +
+                    'dt_validade,' +
+                    'auditoria_entidade_item_id,' +
+                    'auditoria_item_id,' +
+                    'ds_item,' +
+                    'nr_porcentagem,' +
+                    'entidade_item_requisito_id,' +
+                    'ds_requisito,' +
+                    'auditoria_requisito_id,' +
+                    'classificacao_requisito_id,' +
+                    'nm_classificacao,' +
+                    'ds_observacao,' +
+                    'nr_peso,' +
+                    'ds_orientacao,' +
+                    'ie_evidencia,' +
+                    'ds_situacao,' +
+                    'ie_conforme,' +
+                    'dt_prazo_adequacao,' +
+                    'dt_avaliacao)' +
         'VALUES' +
-        '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        '(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
 
   constructor(private platform: Platform,
               private sqlite: SQLite,
@@ -127,12 +116,18 @@ export class DatabaseService {
 
     this.platform.ready().then(() => {
       this.sqlite.create({
-        name: 'auditoria2.db',
+        name: 'auditoria.db',
         location: 'default'
       })
         .then((db: SQLiteObject) => {
-          this.storage = db;
-          this.storage.executeSql(this.auditoriaTable);
+          try {
+            this.storage = db;
+            this.storage.executeSql(this.auditoriaTable).then(() => {
+            console.log('tabela auditoria criada');
+          });
+          } catch (error) {
+            console.log('############################ ' + JSON.stringify(error));
+          }
         });
     });
   }
@@ -160,60 +155,55 @@ export class DatabaseService {
     this.auditoriaListSubject.next(items);
   }
 
-  async insertAuditoria(auditoria: any) {
-    const data = [
-        auditoria.auditoria_entidade_id,
-        auditoria.nr_auditoria,
-        auditoria.entidade_id,
-        auditoria.cd_entidade,
-        auditoria.nm_entidade,
-        auditoria.nm_reduzido,
-        auditoria.nr_cnpj,
-        auditoria.nr_cpf,
-        auditoria.ds_endereco,
-        auditoria.email,
-        auditoria.nr_telefone,
-        // propriedade
-        auditoria.propriedade_id,
-        auditoria.nr_propriedade,
-        auditoria.nm_propriedade,
-        auditoria.ds_endereco,
-        // nivel
-        auditoria.auditoria_nivel_id,
-        auditoria.nr_nivel_auditoria,
-        auditoria.tipo_atividade_id,
-        auditoria.nm_tipo_atividade,
-        auditoria.nm_nivel,
-        auditoria.ds_nivel,
-        auditoria.dt_inicio,
-        auditoria.dt_fim,
-        auditoria.dt_prazo,
-        auditoria.dt_realizada,
-        auditoria.dt_finalizada,
-        auditoria.dt_validade,
-        // entidade_item
-        auditoria.auditoria_entidade_item_id,
-        auditoria.auditoria_item_id,
-        auditoria.ds_item,
-        auditoria.nr_porcentagem,
-        // entidade_item_requisito
-        auditoria.id,
-        auditoria.ds_requisito,
-        auditoria.auditoria_entidade_item_id,
-        auditoria.auditoria_requisito_id,
-        auditoria.classificacao_requisito_id,
-        auditoria.nm_classificacao,
-        auditoria.ds_observacao,
-        auditoria.nr_peso,
-        auditoria.ds_orientacao,
-        auditoria.ie_evidencia,
-        auditoria.ds_situacao,
-        auditoria.ie_conforme,
-        auditoria.dt_prazo_adequacao,
-        auditoria.dt_avaliacao,
-        auditoria.dt_avaliacao
-    ];
-    const res = await this.storage.executeSql(this.auditoriaInsert, data);
+  async insertAuditoria(row: any) {
+    /*const data = [{
+      auditoria_entidade_id: auditoria.auditoria_entidade_id,
+      nr_auditoria: auditoria.nr_auditoria,
+      entidade_id: auditoria.entidade_id,
+      cd_entidade: auditoria.cd_entidade,
+      nm_entidade: auditoria.nm_entidade,
+      nm_reduzido: auditoria.nm_reduzido,
+      nr_cnpj: auditoria.nr_cnpj,
+      nr_cpf: auditoria.nr_cpf,
+      ds_endereco: auditoria.ds_endereco,
+      email: auditoria.email,
+      nr_telefone: auditoria.nr_telefone,
+      propriedade_id: auditoria.propriedade_id,
+      nr_propriedade: auditoria.nr_propriedade,
+      nm_propriedade: auditoria.nm_propriedade,
+      ds_endereco_propriedade: auditoria.ds_endereco_propriedade,
+      auditoria_nivel_id: auditoria.auditoria_nivel_id,
+      nr_nivel_auditoria: auditoria.nr_nivel_auditoria,
+      tipo_atividade_id: auditoria.tipo_atividade_id,
+      nm_tipo_atividade: auditoria.nm_tipo_atividade,
+      nm_nivel: auditoria.nm_nivel,
+      ds_nivel: auditoria.ds_nivel,
+      dt_inicio: auditoria.dt_inicio,
+      dt_fim: auditoria.dt_fim,
+      dt_prazo: auditoria.dt_prazo,
+      dt_realizada: auditoria.dt_realizada,
+      dt_finalizada: auditoria.dt_finalizada,
+      dt_validade: auditoria.dt_validade,
+      auditoria_entidade_item_id: auditoria.auditoria_entidade_item_id,
+      auditoria_item_id: auditoria.auditoria_item_id,
+      ds_item: auditoria.ds_item,
+      nr_porcentagem: auditoria.nr_porcentagem,
+      entidade_item_requisito_id: auditoria.entidade_item_requisito_id,
+      ds_requisito: auditoria.ds_requisito,
+      auditoria_requisito_id: auditoria.auditoria_requisito_id,
+      classificacao_requisito_id: auditoria.classificacao_requisito_id,
+      nm_classificacao: auditoria.nm_classificacao,
+      ds_observacao: auditoria.ds_observacao,
+      nr_peso: auditoria.nr_peso,
+      ds_orientacao: auditoria.ds_orientacao,
+      ie_evidencia: auditoria.ie_evidencia,
+      ds_situacao: auditoria.ds_situacao,
+      ie_conforme: auditoria.ie_conforme,
+      dt_prazo_adequacao: auditoria.dt_prazo_adequacao,
+      dt_avaliaca: auditoria.dt_avaliacao
+    }];*/
+
+    const res = await this.storage.executeSql(this.auditoriaInsert, row);
     this.selectAuditorias();
   }
 
