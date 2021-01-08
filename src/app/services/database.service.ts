@@ -207,13 +207,54 @@ export class DatabaseService {
     this.selectAuditorias();
   }
 
-  // Get single object
   async selectAuditoria(id: any): Promise<any> {
-    const res = await this.storage.executeSql('SELECT * FROM auditoria WHERE id = ?', [id]);
+    const res = await this.storage.executeSql('SELECT * FROM auditoria WHERE auditoria_entidade_id = ?', [id]);
     return {
       id: res.rows.item(0).id,
-      artist_name: res.rows.item(0).artist_name,
-      song_name: res.rows.item(0).song_name
+      auditoria_entidade_id: res.rows.item(0).auditoria_entidade_id,
+      nr_auditoria: res.rows.item(0).nr_auditoria,
+      entidade_id: res.rows.item(0).entidade_id,
+      cd_entidade: res.rows.item(0).cd_entidade,
+      nm_entidade: res.rows.item(0).nm_entidade,
+      nm_reduzido: res.rows.item(0).nm_reduzido,
+      nr_cnpj: res.rows.item(0).nr_cnpj,
+      nr_cpf: res.rows.item(0).nr_cpf,
+      ds_endereco: res.rows.item(0).ds_endereco,
+      email: res.rows.item(0).email,
+      nr_telefone: res.rows.item(0).nr_telefone,
+      propriedade_id: res.rows.item(0).propriedade_id,
+      nr_propriedade: res.rows.item(0).nr_propriedade,
+      nm_propriedade: res.rows.item(0).nm_propriedade,
+      ds_endereco_propriedade: res.rows.item(0).ds_endereco_propriedade,
+      auditoria_nivel_id: res.rows.item(0).auditoria_nivel_id,
+      nr_nivel_auditoria: res.rows.item(0).nr_nivel_auditoria,
+      tipo_atividade_id: res.rows.item(0).tipo_atividade_id,
+      nm_tipo_atividade: res.rows.item(0).nm_tipo_atividade,
+      nm_nivel: res.rows.item(0).nm_nivel,
+      ds_nivel: res.rows.item(0).ds_nivel,
+      dt_inicio: res.rows.item(0).dt_inicio,
+      dt_fim: res.rows.item(0).dt_fim,
+      dt_prazo: res.rows.item(0).dt_prazo,
+      dt_realizada: res.rows.item(0).dt_realizada,
+      dt_finalizada: res.rows.item(0).dt_finalizada,
+      dt_validade: res.rows.item(0).dt_validade,
+      auditoria_entidade_item_id: res.rows.item(0).auditoria_entidade_item_id,
+      auditoria_item_id: res.rows.item(0).auditoria_item_id,
+      ds_item: res.rows.item(0).ds_item,
+      nr_porcentagem: res.rows.item(0).nr_porcentagem,
+      entidade_item_requisito_id: res.rows.item(0).entidade_item_requisito_id,
+      ds_requisito: res.rows.item(0).ds_requisito,
+      auditoria_requisito_id: res.rows.item(0).auditoria_requisito_id,
+      classificacao_requisito_id: res.rows.item(0).classificacao_requisito_id,
+      nm_classificacao: res.rows.item(0).nm_classificacao,
+      ds_observacao: res.rows.item(0).ds_observacao,
+      nr_peso: res.rows.item(0).nr_peso,
+      ds_orientacao: res.rows.item(0).ds_orientacao,
+      ie_evidencia: res.rows.item(0).ie_evidencia,
+      ds_situacao: res.rows.item(0).ds_situacao,
+      ie_conforme: res.rows.item(0).ie_conforme,
+      dt_prazo_adequacao: res.rows.item(0).dt_prazo_adequacao,
+      dt_avaliaca: res.rows.item(0).dt_avaliacao
     };
   }
 

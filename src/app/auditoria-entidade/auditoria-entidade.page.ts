@@ -13,21 +13,23 @@ export class AuditoriaEntidadePage implements OnInit {
 
   entidades = [];
   data: any[] = [];
+  resultSet: any[];
 
   constructor(private auditoriaEntidadeService: AuditoriaEntidadeService,
               private storage: Storage,
               private databaseService: DatabaseService) { }
 
   ngOnInit() {
-    this.getEntidades();
-    this.databaseService.dbState().subscribe((res) => {
+    // this.getEntidades();
+    this.selectAuditorias();
+    /*this.databaseService.dbState().subscribe((res) => {
       if (res) {
         this.databaseService.fetchAuditoria().subscribe(item => {
           this.data = item;
           console.log('data ' + JSON.stringify(item));
         });
       }
-    });
+    });*/
   }
 
   onCancel(event) {
@@ -77,7 +79,7 @@ export class AuditoriaEntidadePage implements OnInit {
       itens.auditoria_entidade_it_requisitos.forEach((requisito) => {
         // tslint:disable-next-line:no-shadowed-variable
         const row = [
-          auditoria.auditoria_entidade_id,
+          auditoria.id,
           auditoria.nr_auditoria,
           auditoria.entidade_id,
           auditoria.entidade.cd_entidade,
@@ -131,6 +133,20 @@ export class AuditoriaEntidadePage implements OnInit {
   remove(entidade: any) {
     this.storage.remove(entidade.id);
     this.getEntidades();
+  }
+
+  selectAuditorias() {
+    this.databaseService.selectAuditorias().then((data: any) => {
+      console.log('####################### ' + data.item);
+      if (data.item.length > 0) {
+        let auditoria: any[] = [];
+        for (var i = 0; i < data.item.length; i++) {
+          var row = data.item(i);
+          auditoria.push(row);
+          console.log('## ' + JSON.stringify(data.item(i)));
+        }
+      }
+    });
   }
 
 }
