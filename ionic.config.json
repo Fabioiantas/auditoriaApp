@@ -1,7 +1,8 @@
 {
   "name": "auditoriaApp",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

@@ -1,5 +1,5 @@
 {
-  "appId": "com.coopauditoria.app",
+  "appId": "com.auditoria.app",
   "appName": "auditoriaApp",
   "bundledWebRuntime": false,
   "npmClient": "npm",
@@ -12,5 +12,5 @@
   "cordova": {},
   "android": {
     "allowMixedContent": true
-}
+  }
 }

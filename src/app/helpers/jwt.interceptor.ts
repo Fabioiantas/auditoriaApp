@@ -19,7 +19,6 @@ export class JwtInterceptor implements HttpInterceptor {
     this.loginService.currentUser.subscribe(data => {
       this.currentUser = data;
     });
-    console.log('intercept user: ' + JSON.stringify(this.currentUser));
     if (this.currentUser && this.currentUser.token) {
         request = request.clone({
           setHeaders: {
@@ -43,7 +42,7 @@ export class JwtInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
         map((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
-            console.log('event--->>>', event);
+            // console.log('event--->>>', event);
           }
           return event;
         }),

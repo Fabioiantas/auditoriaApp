@@ -14,7 +14,6 @@ export class LoginService {
   constructor() { }
 
   changeCurrentUser(user: CredentialUser) {
-    console.log('changeCurrentUser ' + JSON.stringify(user));
     this.userBehavior.next(user);
   }
 }

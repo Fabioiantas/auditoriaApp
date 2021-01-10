@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
 
   loginForm = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
+    email: new FormControl('fabioiantas@outlook.com', Validators.required),
+    password: new FormControl('secret', Validators.required)
   });
 
   constructor(private authenticationService: AuthenticationService,
