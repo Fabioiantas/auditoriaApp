@@ -13,8 +13,8 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle>{{auditoria.auditoria_nivel.nm_nivel}}</ion-card-subtitle>
-      <ion-card-title>{{auditoria.propriedade.nm_propriedade}}</ion-card-title>
+      <ion-card-subtitle>{{auditoria[0].auditoria_nivel.nm_nivel}}</ion-card-subtitle>
+      <ion-card-title>{{auditoria[0].propriedade.nm_propriedade}}</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
@@ -24,6 +24,7 @@
   
   <i-form [formGroup]="requisitoForm">
     <ion-card>
+      <ion-input type="number" required formControlName="id" hidden></ion-input>
       <ion-item>
         <ion-label>Situação</ion-label>
         <ion-select required formControlName="ie_conforme" placeholder="Select One">
@@ -34,13 +35,12 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">Prazo Adequação</ion-label>
-        <ion-datetime required formControlName="dt_prazo_adequacao" displayFormat="DD/MM/YYYY"></ion-datetime>
+        <ion-datetime formControlName="dt_prazo_adequacao" displayFormat="DD/MM/YYYY"></ion-datetime>
       </ion-item>
       <ion-item class="ion-activated">
         <ion-label position="floating">Observações</ion-label>
-        <ion-textarea required formControlName="ds_observacao"></ion-textarea>
+        <ion-textarea formControlName="ds_observacao"></ion-textarea>
       </ion-item>
-      <ion-input type="number" required formControlName="id" hidden></ion-input>
   
       
     </ion-card>

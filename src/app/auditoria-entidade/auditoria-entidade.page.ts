@@ -46,7 +46,6 @@ export class AuditoriaEntidadePage implements OnInit {
     this.auditoriaEntidadeService.getAuditoriaEntidadeItReqById().subscribe(data => {
       for (let i = data.length - 1; i >= 0; i--) {
         this.databaseService.getLocalAuditoriaById(data[i].id).then((value) => {
-          console.log('value ' + JSON.stringify(value));
           if (value.id) {
             data[i].local = 'true';
           }

@@ -13,7 +13,7 @@ import { DatabaseService } from '../services/database.service';
 export class ItemRequisitosPage implements OnInit {
 
   auditoria: any;
-  itemRequisitos: any[];
+  itemRequisitos: any[] = [];
   automaticClose = false;
   public folder: string;
 
@@ -30,15 +30,16 @@ export class ItemRequisitosPage implements OnInit {
 
   getItemRequisitos(id: any) {
     this.dataBaseService.getLocalAuditorias().then((value) => {
+      this.itemRequisitos = value[0].auditoria_entidade_items;
+      this.auditoria = value;
+      this.itemRequisitos[0].open = true;
+      
+    });
+    /*this.storage.get(id).then((value) => {
       this.itemRequisitos = value.auditoria_entidade_items;
       this.auditoria = value;
       this.itemRequisitos[0].open = true;
-    });
-    this.storage.get(id).then((value) => {
-      this.itemRequisitos = value.auditoria_entidade_items;
-      this.auditoria = value;
-      this.itemRequisitos[0].open = true;
-    });
+    });*/
   }
 
   avaliar(requisito: any, situacao: string) {

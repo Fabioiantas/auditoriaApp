@@ -45,8 +45,10 @@ export class AuditarPage implements OnInit {
   }
 
   salvar() {
-    this.auditoria.auditoria_entidade_items.forEach(itens => {
+    /*this.auditoria.auditoria_entidade_items.forEach(itens => {
+      console.log('items: ' + JSON.stringify(itens));
       itens.auditoria_entidade_it_requisitos.forEach(requisitos => {
+        console.log('for: ' + JSON.stringify(requisitos) + '<> this' + JSON.stringify(this.requisito.id));
         if (requisitos.id === this.requisito.id) {
           requisitos.ie_conforme = this.requisitoForm.value.ie_conforme;
           requisitos.dt_prazo_adequacao = !this.requisitoForm.value.dt_prazo_adequacao
@@ -54,7 +56,7 @@ export class AuditarPage implements OnInit {
           requisitos.ds_observacao = this.requisitoForm.value.ds_observacao;
         }
       });
-    });
+    });*/
     const data = [
       JSON.stringify(this.auditoria),
       this.auditoria.id
@@ -63,6 +65,7 @@ export class AuditarPage implements OnInit {
       this.showToast('Alteraçõs salvas com sucesso!');
     });
   }
+
   async showToast(message: string) {
     const toast = await this.toastController.create({
       message,
