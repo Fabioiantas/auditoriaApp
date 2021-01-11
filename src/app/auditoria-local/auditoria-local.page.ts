@@ -37,7 +37,7 @@ export class AuditoriaLocalPage implements OnInit {
 
   getLocalAuditorias() {
     this.dataBaseService.getLocalAuditorias().then((value) => {
-      this.auditorias = value;
+      this.auditorias = value[0];
     });
   }
 

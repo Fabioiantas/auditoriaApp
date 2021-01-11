@@ -30,6 +30,7 @@ export class AuditarPage implements OnInit {
 
 
   ngOnInit() {
+    console.log('init requi ' + JSON.stringify(this.requisito));
     this.requisitoForm.patchValue({
       id: this.requisito.id,
       ie_conforme: this.requisito.ie_conforme,
@@ -45,7 +46,7 @@ export class AuditarPage implements OnInit {
   }
 
   salvar() {
-    /*this.auditoria.auditoria_entidade_items.forEach(itens => {
+    this.auditoria[0].auditoria_entidade_items.forEach(itens => {
       console.log('items: ' + JSON.stringify(itens));
       itens.auditoria_entidade_it_requisitos.forEach(requisitos => {
         console.log('for: ' + JSON.stringify(requisitos) + '<> this' + JSON.stringify(this.requisito.id));
@@ -54,12 +55,14 @@ export class AuditarPage implements OnInit {
           requisitos.dt_prazo_adequacao = !this.requisitoForm.value.dt_prazo_adequacao
             ? null : moment(this.requisitoForm.value.dt_prazo_adequacao).format('DD/MM/YYYY');
           requisitos.ds_observacao = this.requisitoForm.value.ds_observacao;
+          console.log('requisitos: ' + JSON.stringify(requisitos));
         }
       });
-    });*/
+    });
+    
     const data = [
       JSON.stringify(this.auditoria),
-      this.auditoria.id
+      this.auditoria[0].id
     ];
     this.dataBaseService.updateRequisito(data).then(() => {
       this.showToast('Alteraçõs salvas com sucesso!');
