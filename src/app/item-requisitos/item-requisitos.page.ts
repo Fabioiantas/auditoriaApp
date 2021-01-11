@@ -30,7 +30,7 @@ export class ItemRequisitosPage implements OnInit {
 
   getItemRequisitos(id: any) {
     this.dataBaseService.localAuditoriaById(id).then((value) => {
-      console.log('localAuditoriaById '+ JSON.stringify(value[0].auditoria_entidade_items));
+      console.log('localAuditoriaById '+ JSON.stringify(value[0]));
       this.itemRequisitos = value[0].auditoria_entidade_items;
       this.auditoria = value[0];
       // this.itemRequisitos[0].open = true;
