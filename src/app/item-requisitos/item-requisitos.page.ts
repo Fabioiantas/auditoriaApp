@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemRequisitosService } from '../services/item-requisitos.service';
 import { Storage } from '@ionic/storage';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-item-requisitos',
@@ -18,7 +19,8 @@ export class ItemRequisitosPage implements OnInit {
 
   constructor(private requisitoLocalService: RequisitoLocalService,
               private route: ActivatedRoute,
-              private storage: Storage) { }
+              private storage: Storage,
+              private dataBaseService: DatabaseService) { }
 
   ngOnInit() {
     this.route.params.subscribe(param => {
@@ -27,6 +29,11 @@ export class ItemRequisitosPage implements OnInit {
   }
 
   getItemRequisitos(id: any) {
+    this.dataBaseService.getLocalAuditorias().then((value) => {
+      this.itemRequisitos = value.auditoria_entidade_items;
+      this.auditoria = value;
+      this.itemRequisitos[0].open = true;
+    });
     this.storage.get(id).then((value) => {
       this.itemRequisitos = value.auditoria_entidade_items;
       this.auditoria = value;
