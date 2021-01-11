@@ -13,6 +13,8 @@ export class DatabaseService {
   auditoriaListSubject = new BehaviorSubject([]);
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  auditorias: any;
+
 
   auditoriaTable = 'CREATE TABLE IF NOT EXISTS auditoria (' +
       'id INTEGER primary key not null,' +
@@ -57,6 +59,23 @@ export class DatabaseService {
     });
   }
 
+  getLocalAuditorias() {
+    return this.storage.executeSql('SELECT * FROM auditoria', []).then(data => {
+      const auditorias: any[] = [];
+      if (data.rows.length > 0) {
+        for (let i = 0; i < data.rows.length; i++) {
+          let skills = [];
+          if (data.rows.item(i).skills !== '') {
+            skills = JSON.parse(data.rows.item(i).json);
+          }
+          auditorias.push(skills);
+        }
+      }
+      // this.auditorias.next(auditorias);
+      return auditorias;
+    });
+  }
+
   async selectAuditorias() {
     const sql = 'select json from auditoria';
     const res = await this.storage.executeSql(sql, []);
@@ -94,23 +113,15 @@ export class DatabaseService {
   }
 
   // Update
-  async updateSong(id, song: any) {
-    const data = [song.artist_name, song.song_name];
-    await this.storage.executeSql(`UPDATE songtable SET artist_name = ?, song_name = ? WHERE id = ${id}`, data);
-    this.selectAuditorias();
+  async updateRequisito(data: any) {
+    await this.storage.executeSql(`UPDATE auditoria
+                                      SET json = ?
+                                    WHERE id = ?`, data);
   }
 
   // Delete
   async deleteAuditoria(id) {
     const _ = await this.storage.executeSql('DELETE FROM auditoria WHERE id = ?', [id]);
-  }
-
-  async showToast(message: string) {
-    const toast = await this.toast.create({
-      message,
-      duration: 3000
-    });
-    toast.present();
   }
 }
 

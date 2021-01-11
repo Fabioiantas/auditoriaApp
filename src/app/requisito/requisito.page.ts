@@ -22,6 +22,7 @@ export class RequisitoPage implements OnInit {
               private modalController: ModalController) { }
 
   ngOnInit() {
+    console.log(JSON.stringify(this.requisito));
   }
 
   async buyItem(requisito: { name: any; }) {

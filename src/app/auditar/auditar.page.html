@@ -23,7 +23,6 @@
   </ion-card>
   
   <i-form [formGroup]="requisitoForm">
-
     <ion-card>
       <ion-item>
         <ion-label>Situação</ion-label>
@@ -41,6 +40,7 @@
         <ion-label position="floating">Observações</ion-label>
         <ion-textarea required formControlName="ds_observacao"></ion-textarea>
       </ion-item>
+      <ion-input type="number" required formControlName="id" hidden></ion-input>
   
       
     </ion-card>

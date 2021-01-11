@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { Key } from 'protractor';
+import { DatabaseService } from '../services/database.service';
 
 
 @Component({
@@ -13,22 +14,30 @@ export class AuditoriaLocalPage implements OnInit {
   auditorias: any;
 
   constructor(private storage: Storage,
-              private router: Router) { }
+              private router: Router,
+              private dataBaseService: DatabaseService) { }
 
   ngOnInit() {
-   this.getAll().then((value) => {
+   /*this.getAll().then((value) => {
     this.auditorias = value;
-   });
+   });*/
+   this.getLocalAuditorias();
   }
 
-  getAll() {
-    const items = [];
-    return this.storage.forEach((value, key, index) => {
-      if (key !== 'currentUser') {
-        items.push((value));
-      }
-    }).then(() => {
-        return items;
+  // getAll() {
+  //   const items = [];
+  //   return this.storage.forEach((value, key, index) => {
+  //     if (key !== 'currentUser') {
+  //       items.push((value));
+  //     }
+  //   }).then(() => {
+  //       return items;
+  //   });
+  // }
+
+  getLocalAuditorias() {
+    this.dataBaseService.getLocalAuditorias().then((value) => {
+      this.auditorias = value;
     });
   }
 

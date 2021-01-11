@@ -11,16 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d65a969d-c227-4f76-b62b-1aaf976b7aa0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../capacitor.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../capacitor.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ionic.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ionic.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ios/App/App/capacitor.config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/App/App/capacitor.config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/auditoria-entidade/auditoria-entidade.page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/auditoria-entidade/auditoria-entidade.page.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/helpers/jwt.interceptor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/helpers/jwt.interceptor.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/login/login.page.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/login/login.page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/auditar/auditar.page.html" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/auditar/auditar.page.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/auditar/auditar.page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/auditar/auditar.page.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/auditoria-local/auditoria-local.page.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/auditoria-local/auditoria-local.page.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/app/helpers/error.interceptor.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/helpers/error.interceptor.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/app/services/database.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/services/database.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/app/services/login.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/app/services/login.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/environments/environment.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,31 +151,31 @@
     </state>
     <state x="106" y="44" width="1176" height="544" key="AVDManager/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1610192540219" />
     <state x="106" y="44" width="1176" height="544" key="AVDManager/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610154226758" />
-    <state x="1827" y="105" key="FileChooserDialogImpl" timestamp="1610225977274">
+    <state x="1827" y="105" key="FileChooserDialogImpl" timestamp="1610327082660">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state x="463" y="105" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1610192740805" />
-    <state x="1827" y="105" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610225977274" />
-    <state width="657" height="214" key="GridCell.Tab.0.bottom" timestamp="1610229948610">
+    <state x="1827" y="105" key="FileChooserDialogImpl/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610327082660" />
+    <state width="1316" height="175" key="GridCell.Tab.0.bottom" timestamp="1610325616270">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1322" height="178" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1610196390727" />
-    <state width="657" height="214" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610229948610" />
-    <state width="657" height="214" key="GridCell.Tab.0.center" timestamp="1610229948609">
+    <state width="1316" height="175" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610325616270" />
+    <state width="1316" height="175" key="GridCell.Tab.0.center" timestamp="1610325616270">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1322" height="178" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1610196390726" />
-    <state width="657" height="214" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610229948609" />
-    <state width="657" height="214" key="GridCell.Tab.0.left" timestamp="1610229948609">
+    <state width="1316" height="175" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610325616270" />
+    <state width="1316" height="175" key="GridCell.Tab.0.left" timestamp="1610325616269">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1322" height="178" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1610196390726" />
-    <state width="657" height="214" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610229948609" />
-    <state width="657" height="214" key="GridCell.Tab.0.right" timestamp="1610229948610">
+    <state width="1316" height="175" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610325616269" />
+    <state width="1316" height="175" key="GridCell.Tab.0.right" timestamp="1610325616270">
       <screen x="1366" y="0" width="1360" height="728" />
     </state>
     <state width="1322" height="178" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1360.728@0.0.1366.728" timestamp="1610196390726" />
-    <state width="657" height="214" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610229948610" />
+    <state width="1316" height="175" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1360.728@1366.0.1360.728" timestamp="1610325616270" />
     <state x="184" y="9" key="SettingsEditor" timestamp="1610192755462">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

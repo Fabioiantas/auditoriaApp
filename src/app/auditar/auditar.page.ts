@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
+import { DatabaseService } from '../services/database.service';
 
 @Component({
   selector: 'app-auditar',
@@ -17,18 +18,20 @@ export class AuditarPage implements OnInit {
   localRequisito: any;
 
   requisitoForm = new FormGroup({
+    id: new FormControl('', Validators.required),
     ie_conforme: new FormControl('', Validators.required),
-    dt_prazo_adequacao: new FormControl('', Validators.required),
-    ds_observacao: new FormControl('', Validators.required)
+    dt_prazo_adequacao: new FormControl(''),
+    ds_observacao: new FormControl('')
   });
 
-  constructor(private storage: Storage,
-              private modalCtrl: ModalController,
-              private toastController: ToastController) { }
+  constructor(private modalCtrl: ModalController,
+              private toastController: ToastController,
+              private dataBaseService: DatabaseService) { }
 
 
   ngOnInit() {
     this.requisitoForm.patchValue({
+      id: this.requisito.id,
       ie_conforme: this.requisito.ie_conforme,
       dt_prazo_adequacao: !this.requisito.dt_prazo_adequacao ? null : moment(this.requisito.dt_prazo_adequacao).format('DD/MM/YYYY'),
       ds_observacao: this.requisito.ds_observacao
@@ -52,11 +55,14 @@ export class AuditarPage implements OnInit {
         }
       });
     });
-    this.storage.set(this.auditoria.id, this.auditoria);
-    this.showToast('Alteraçõs salvas com sucesso!');
-    this.dismiss();
+    const data = [
+      JSON.stringify(this.auditoria),
+      this.auditoria.id
+    ];
+    this.dataBaseService.updateRequisito(data).then(() => {
+      this.showToast('Alteraçõs salvas com sucesso!');
+    });
   }
-
   async showToast(message: string) {
     const toast = await this.toastController.create({
       message,
