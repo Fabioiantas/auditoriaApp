@@ -7,43 +7,36 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<div>
-  <ion-list *ngFor="let item of itemRequisitos; let i = index;" class="accordion-list" lines="none" detail="false"
-    no-padding>
-    <ion-item tappable (click)="toggleSection(i)" [ngClass]="{'section-active': item.open, 'section': !item.open}">
-      <ion-icon slot="start" name="chevron-forward-outline" size="small" *ngIf="!item.open"></ion-icon>
-      <ion-icon slot="start" name="chevron-down-outline" size="small" *ngIf="item.open"></ion-icon>
-      <ion-label class="ion-text-wrap">
-        <h6><b>{{i+1}}.</b> {{item.ds_item}}</h6>
-      </ion-label>
-    </ion-item>
+<ion-content *ngFor="let nivel of auditoria; let i = index;">
+    
+    <ion-list *ngFor="let item of nivel.auditoria_entidade_items; let i = index;" class="accordion-list"
+      lines="none" detail="false" no-padding>
+      <ion-item tappable (click)="toggleSection(i)" [ngClass]="{'section-active': item.open, 'section': !item.open}">
+        <ion-icon slot="start" name="chevron-forward-outline" size="small" *ngIf="!item.open"></ion-icon>
+        <ion-icon slot="start" name="chevron-down-outline" size="small" *ngIf="item.open"></ion-icon>
+        <ion-label class="ion-text-wrap">
+          <h6><b>{{i+1}}.</b> {{item.ds_item}}</h6>
+        </ion-label>
+      </ion-item>
+      <div *ngIf="item.auditoria_entidade_it_requisitos && item.open">
+        <ion-list *ngFor="let requisito of item.auditoria_entidade_it_requisitos; let j = index;" lines="none">
+          <ion-item-sliding>
+            <app-requisito class="product-list" [auditoria]="auditoria" [requisito]="requisito" [i]="i" [j]="j"></app-requisito>
+            <ion-item-options side="end">
+              <ion-item-option (click)="avaliar(requisito,'S')" color="success">
+                <ion-icon slot="icon-only" name="thumbs-up-outline"></ion-icon>
+              </ion-item-option>
+              <ion-item-option (click)="avaliar(requisito,'N')" color="danger">
+                <ion-icon slot="icon-only" name="thumbs-down-outline"></ion-icon>
+              </ion-item-option>
+              <ion-item-option (click)="avaliar(requisito,'A')" color="warning">
+                <ion-icon slot="icon-only" name="ban-outline"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </div>
 
-    <div *ngIf="item.auditoria_entidade_it_requisitos && item.open">
-      <ion-list *ngFor="let requisito of item.auditoria_entidade_it_requisitos; let j = index;" lines="none">
-
-        <ion-item-sliding>
-
-          <app-requisito class="product-list" [auditoria]="auditoria" [requisito]="requisito" [i]="i" [j]="j">
-          </app-requisito>
-
-          <ion-item-options side="end">
-            <ion-item-option (click)="avaliar(requisito,'S')" color="success">
-              <ion-icon slot="icon-only" name="thumbs-up-outline"></ion-icon>
-            </ion-item-option>
-            <ion-item-option (click)="avaliar(requisito,'N')" color="danger">
-              <ion-icon slot="icon-only" name="thumbs-down-outline"></ion-icon>
-            </ion-item-option>
-            <ion-item-option (click)="avaliar(requisito,'A')" color="warning">
-              <ion-icon slot="icon-only" name="ban-outline"></ion-icon>
-            </ion-item-option>
-          </ion-item-options>
-
-        </ion-item-sliding>
-
-      </ion-list>
-    </div>
-
-  </ion-list>
+    </ion-list>
 
 </ion-content>

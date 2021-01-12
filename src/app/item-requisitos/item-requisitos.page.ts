@@ -1,7 +1,6 @@
 import { RequisitoLocalService } from './../services/requisito-local.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ItemRequisitosService } from '../services/item-requisitos.service';
 import { Storage } from '@ionic/storage';
 import { DatabaseService } from '../services/database.service';
 
@@ -30,12 +29,10 @@ export class ItemRequisitosPage implements OnInit {
 
   getItemRequisitos(id: any) {
     this.dataBaseService.localAuditoriaById(id).then((value) => {
-      console.log('localAuditoriaById ' + JSON.stringify(value));
-      for (const iterator of value[0].auditoria_entidade_items) {
-        this.itemRequisitos .push(iterator);
-      }
-      this.auditoria = value[0];
-      // this.itemRequisitos[0].open = true;
+      console.log('getItemRequisitos: ' + JSON.stringify(value));
+      //this.itemRequisitos = value[0].auditoria_entidade_items;
+      this.auditoria = value;
+      //this.itemRequisitos[0].open = true;
 
     });
     /*this.storage.get(id).then((value) => {
@@ -54,10 +51,10 @@ export class ItemRequisitosPage implements OnInit {
   }
 
   toggleSection(index) {
-    this.itemRequisitos[index].open = !this.itemRequisitos[index].open;
+    this.auditoria[0].auditoria_entidade_items[index].open = !this.auditoria[0].auditoria_entidade_items[index].open;
 
     if (this.automaticClose && this.itemRequisitos[index].open) {
-      this.itemRequisitos
+      this.auditoria[0].auditoria_entidade_items
       .filter((item, itemIndex) => itemIndex !== index)
       .map(item => item.open = false);
     }

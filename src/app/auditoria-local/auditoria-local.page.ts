@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage';
-import { Key } from 'protractor';
 import { DatabaseService } from '../services/database.service';
 
 
@@ -13,8 +11,7 @@ import { DatabaseService } from '../services/database.service';
 export class AuditoriaLocalPage implements OnInit {
   auditorias: any;
 
-  constructor(private storage: Storage,
-              private router: Router,
+  constructor(private router: Router,
               private dataBaseService: DatabaseService) { }
 
   ngOnInit() {
@@ -68,6 +65,7 @@ export class AuditoriaLocalPage implements OnInit {
   }
 
   itenRequisito(auditoria: any) {
+    console.log('itenRequisito '+ JSON.stringify(auditoria.id));
     this.router.navigate([`/item-requisitos/${auditoria.id}`]);
   }
 

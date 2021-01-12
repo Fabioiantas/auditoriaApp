@@ -2,6 +2,7 @@ import { Platform, ToastController } from '@ionic/angular';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { audit } from 'rxjs/operators';
 
 
 @Injectable({
@@ -57,7 +58,7 @@ export class DatabaseService {
         id: data.rows.item(0).id
       };
     });
-  }
+  }  
 
   getLocalAuditorias() {
     return this.storage.executeSql('SELECT * FROM auditoria', []).then(data => {
@@ -86,7 +87,7 @@ export class DatabaseService {
           }
           auditorias.push(skills);
         }
-      }
+      }      
       return auditorias;
     });
   }

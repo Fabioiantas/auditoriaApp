@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Itens',
-      url: '/item-requisitos/4',
+      url: '/item-requisitos/2',
       icon: 'heart'
     },
     {
@@ -53,8 +53,7 @@ export class AppComponent implements OnInit {
   constructor(private platform: Platform,
               private splashScreen: SplashScreen,
               private statusBar: StatusBar,
-              private storage: Storage,
-              private databaseService: DatabaseService) {
+              private storage: Storage) {
     this.initializeApp();
   }
 

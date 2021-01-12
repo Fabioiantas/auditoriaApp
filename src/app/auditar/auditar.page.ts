@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
-import { Storage } from '@ionic/storage';
 import * as moment from 'moment';
 import { DatabaseService } from '../services/database.service';
 
@@ -25,6 +24,7 @@ export class AuditarPage implements OnInit {
   });
 
   constructor(private modalCtrl: ModalController,
+              private router: Router,
               private toastController: ToastController,
               private dataBaseService: DatabaseService) { }
 
@@ -47,26 +47,28 @@ export class AuditarPage implements OnInit {
 
   salvar() {
     this.auditoria[0].auditoria_entidade_items.forEach(itens => {
-      console.log('items: ' + JSON.stringify(itens));
+      // console.log('items: ' + JSON.stringify(itens));
       itens.auditoria_entidade_it_requisitos.forEach(requisitos => {
-        console.log('for: ' + JSON.stringify(requisitos) + '<> this' + JSON.stringify(this.requisito.id));
+        // console.log('for: ' + JSON.stringify(requisitos) + '<> this' + JSON.stringify(this.requisito.id));
         if (requisitos.id === this.requisito.id) {
           requisitos.ie_conforme = this.requisitoForm.value.ie_conforme;
           requisitos.dt_prazo_adequacao = !this.requisitoForm.value.dt_prazo_adequacao
             ? null : moment(this.requisitoForm.value.dt_prazo_adequacao).format('DD/MM/YYYY');
           requisitos.ds_observacao = this.requisitoForm.value.ds_observacao;
-          console.log('requisitos: ' + JSON.stringify(requisitos));
+          //console.log('requisitos: ' + JSON.stringify(requisitos));
         }
       });
-    });
-    
-    const data = [
-      JSON.stringify(this.auditoria),
-      this.auditoria[0].id
-    ];
-    this.dataBaseService.updateRequisito(data).then(() => {
-      this.showToast('Alteraçõs salvas com sucesso!');
-    });
+    });    
+    for (let iterator of this.auditoria) {      
+      const data = [
+        JSON.stringify(iterator),
+        iterator.id
+      ];
+      this.dataBaseService.updateRequisito(data).then(() => {
+        this.showToast('Alteraçõs salvas com sucesso!');
+        this.dismiss();
+      });
+    }
   }
 
   async showToast(message: string) {

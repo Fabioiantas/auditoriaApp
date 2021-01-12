@@ -29,18 +29,18 @@ export class ErrorInterceptor implements HttpInterceptor {
        return throwError(err.error.message);
       }
       if ([500].indexOf(err.status) !== -1) {
-        console.log(err.error.message);
+        console.log(JSON.stringify(err));
         this.showToast(err.error.message);
         return throwError(err.message);
       }
       if ([512].indexOf(err.status) !== -1) {
-        console.log(err.error.message);
+        console.log(JSON.stringify(err));
         this.showToast(err.error.message);
         return throwError(err.message);
       }
       if ([513].indexOf(err.status) !== -1) { // SESSAO EXPIRADA
         this.sessao = false;
-        console.log(err.error.message);
+        console.log(JSON.stringify(err));
         this.showToast('Sessão expirada, efetue login!');
         this.router.navigate(['/login'], { queryParams: { message: err.error.message } });
         // //alert(err.error.message);
