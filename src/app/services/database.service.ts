@@ -71,25 +71,22 @@ export class DatabaseService {
           auditorias.push(skills);
         }
       }
-      // this.auditorias.next(auditorias);
       return auditorias;
     });
   }
-  
-  localAuditoriaById(id) {
+
+  localAuditoriaById(id: any) {
     return this.storage.executeSql('SELECT * FROM auditoria where id = ?', [id]).then(data => {
       const auditorias: any[] = [];
       if (data.rows.length > 0) {
         for (let i = 0; i < data.rows.length; i++) {
           let skills = [];
           if (data.rows.item(i).skills !== '') {
-            // skills = JSON.parse(data.rows.item(i).json);
-            auditorias.push(data.rows.item(i).json);
+            skills = JSON.parse(data.rows.item(i).json);
           }
-          // auditorias.push(skills);
+          auditorias.push(skills);
         }
       }
-      // this.auditorias.next(auditorias);
       return auditorias;
     });
   }

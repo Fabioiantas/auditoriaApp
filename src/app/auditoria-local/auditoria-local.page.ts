@@ -21,7 +21,7 @@ export class AuditoriaLocalPage implements OnInit {
    /*this.getAll().then((value) => {
     this.auditorias = value;
    });*/
-   this.getLocalAuditorias();
+   this.getAuditorias();
   }
 
   // getAll() {
@@ -35,9 +35,9 @@ export class AuditoriaLocalPage implements OnInit {
   //   });
   // }
 
-  getLocalAuditorias() {
+  getAuditorias() {
     this.dataBaseService.getLocalAuditorias().then((value) => {
-      this.auditorias = value[0];
+      this.auditorias = value;
     });
   }
 
