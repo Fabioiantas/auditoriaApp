@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { AuditoriaEntidadeService } from './../services/auditoria-entidade.service';
 import { IsLoadingService } from '../services/is-loading.service';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class AuditoriaEntidadePage implements OnInit {
   resultSet: any[];
   localAuditoria: any[] = [];
 
-  constructor(private auditoriaEntidadeService: AuditoriaEntidadeService,
+  constructor(private alertController: AlertController,
+              private auditoriaEntidadeService: AuditoriaEntidadeService,
               private storage: Storage,
               private databaseService: DatabaseService,
               private isLoading: IsLoadingService) { }
@@ -66,14 +68,36 @@ export class AuditoriaEntidadePage implements OnInit {
     this.getEntidades();
   }
 
-  remove(entidade: any) {
-    this.storage.remove(entidade.id);
-    this.databaseService.deleteAuditoria(entidade.id);
+  remove(id: any) {
+    this.storage.remove(id);
+    this.databaseService.deleteAuditoria(id);
     this.getEntidades();
   }
 
   selectAuditorias() {
     this.databaseService.selectAuditorias().then((data: any) => {
     });
+  }
+
+  async presentAlertConfirm(id: any) {
+    const   alert = await this.alertController.create({
+      header: 'Confirmação!',
+      message: 'Confirma remoção da Auditoria do Sistema?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: (blah) => {
+            return;
+          }
+        }, {
+          text: 'Confirmar',
+          handler: () => {
+            this.remove(id);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 }

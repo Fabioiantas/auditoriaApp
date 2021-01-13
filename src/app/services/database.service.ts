@@ -58,7 +58,7 @@ export class DatabaseService {
         id: data.rows.item(0).id
       };
     });
-  }  
+  }
 
   getLocalAuditorias() {
     return this.storage.executeSql('SELECT * FROM auditoria', []).then(data => {
@@ -87,7 +87,7 @@ export class DatabaseService {
           }
           auditorias.push(skills);
         }
-      }      
+      }
       return auditorias;
     });
   }

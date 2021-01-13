@@ -26,8 +26,8 @@ export class AppComponent implements OnInit {
       icon: 'paper-plane'
     },
     {
-      title: 'Itens',
-      url: '/item-requisitos/2',
+      title: 'Test',
+      url: '/integracao',
       icon: 'heart'
     },
     {

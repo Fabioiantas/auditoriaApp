@@ -38,7 +38,11 @@ const routes: Routes = [
   {
     path: 'page-header',
     loadChildren: () => import('./page-header/page-header.module').then( m => m.PageHeaderPageModule)
+  },  {
+    path: 'integracao',
+    loadChildren: () => import('./integracao/integracao.module').then( m => m.IntegracaoPageModule)
   }
+
 
 
 ];
