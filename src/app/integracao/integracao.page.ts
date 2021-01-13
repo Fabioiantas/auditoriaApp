@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./integracao.page.scss'],
 })
 export class IntegracaoPage implements OnInit {
-
+  showSearch = false;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onSearch() {
+    this.showSearch = !this.showSearch;
+  }
+
+  onInput($event) {
+    console.log(JSON.stringify($event));
   }
 
 }
