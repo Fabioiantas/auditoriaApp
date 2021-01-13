@@ -1,17 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <ion-buttons *ngIf="!showSearch"slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Auditorias </ion-title>
-    
+    <ion-title *ngIf="!showSearch">Auditorias</ion-title>
+    <ion-buttons *ngIf="!showSearch" slot="end">
+      <ion-button (click)="onSearch()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="showSearch" slot="start">
+      <ion-button (click)="onSearch()">
+        <ion-icon slot="icon-only" name="chevron-back-outline" size="small"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar *ngIf="showSearch" [showCancelButton]="shouldShowCancel" (ionInput)="getItems($event)"
+      (ionCancel)="onCancel($event)">
+  </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"
-    (ionCancel)="onCancel($event)">
-  </ion-searchbar>
   <ion-list>
     <ion-item-sliding *ngFor="let auditoria of auditorias; let i = index"  id="item+index">
       <ion-item (click)="itenRequisito(auditoria)">
