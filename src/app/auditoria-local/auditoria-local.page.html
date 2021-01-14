@@ -15,7 +15,7 @@
       </ion-button>
     </ion-buttons>
     <ion-searchbar *ngIf="showSearch" [showCancelButton]="shouldShowCancel" (ionInput)="getItems($event)"
-      (ionCancel)="onCancel($event)">
+      (ionCancel)="onCancel($event)" placeholder="Nome da Entidade" animated>
   </ion-searchbar>
   </ion-toolbar>
 </ion-header>
