@@ -66,7 +66,7 @@ export class AuditoriaLocalPage implements OnInit {
   }
 
   itenRequisito(auditoria: any) {
-    console.log('itenRequisito '+ JSON.stringify(auditoria.id));
+    console.log('itenRequisito ' + JSON.stringify(auditoria.id));
     this.router.navigate([`/item-requisitos/${auditoria.id}`]);
   }
 
@@ -75,16 +75,11 @@ export class AuditoriaLocalPage implements OnInit {
   }
 
   getItems(ev: any) {
-    // Reset items back to all of the items
-
-    // set val to the value of the searchbar
     const val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
+    if (val && val.trim() !== '') {
       this.auditorias = this.auditorias.filter((item) => {
         return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      });
     }
   }
 
