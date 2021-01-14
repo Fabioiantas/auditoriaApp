@@ -14,6 +14,8 @@ export class ItemRequisitosPage implements OnInit {
   auditoria: any;
   itemRequisitos  = [];
   automaticClose = false;
+  searchListCopy: any;
+  showSearch = false;
   public folder: string;
 
   constructor(private requisitoLocalService: RequisitoLocalService,
@@ -29,7 +31,6 @@ export class ItemRequisitosPage implements OnInit {
 
   getItemRequisitos(id: any) {
     this.dataBaseService.localAuditoriaById(id).then((value) => {
-      console.log('getItemRequisitos: ' + JSON.stringify(value));
       //this.itemRequisitos = value[0].auditoria_entidade_items;
       this.auditoria = value;
       //this.itemRequisitos[0].open = true;
@@ -62,6 +63,25 @@ export class ItemRequisitosPage implements OnInit {
 
   toggleItem(index, childIndex) {
     this.itemRequisitos[index].children[childIndex].open = !this.itemRequisitos[index].children[childIndex].open;
+  }
+
+  onSearch() {
+    this.showSearch = !this.showSearch;
+    this.searchListCopy = JSON.parse(JSON.stringify(this.auditoria));
+  }
+
+  getItems(ev: any) {
+    if (ev.target.value.trim() == ''){
+      this.resetChanges();
+      return;
+    }
+    this.auditoria = this.auditoria.filter((item)=>{
+        return item.entidade.nm_entidade.toLowerCase().indexOf(ev.target.value.toLowerCase())>-1;
+    });
+  }
+
+  protected resetChanges = () => {
+      this.auditoria = this.searchListCopy;
   }
 
 }

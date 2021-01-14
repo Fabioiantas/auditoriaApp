@@ -80,6 +80,7 @@ export class AuditoriaLocalPage implements OnInit {
   }
 
   getItems(ev: any) {
+    this.resetChanges();
     if (ev.target.value.trim() == ''){
       this.resetChanges();
       return;
