@@ -1,3 +1,5 @@
+import { audit } from 'rxjs/operators';
+import { sortBy } from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatabaseService } from '../services/database.service';
@@ -10,6 +12,8 @@ import { DatabaseService } from '../services/database.service';
 })
 export class AuditoriaLocalPage implements OnInit {
   auditorias: any;
+  searchListCopy: any;
+
   showSearch = false;
 
   constructor(private router: Router,
@@ -72,15 +76,22 @@ export class AuditoriaLocalPage implements OnInit {
 
   onSearch() {
     this.showSearch = !this.showSearch;
+    this.searchListCopy = JSON.parse(JSON.stringify(this.auditorias));
   }
 
   getItems(ev: any) {
-    const val = ev.target.value;
-    if (val && val.trim() !== '') {
-      this.auditorias = this.auditorias.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      });
+    if (ev.target.value.trim() == ''){
+      this.resetChanges();
+      return;
     }
+    this.auditorias = this.auditorias.filter((item)=>{
+        return item.entidade.nm_entidade.toLowerCase().indexOf(ev.target.value.toLowerCase())>-1;
+    });
   }
+
+  protected resetChanges = () => {
+      this.auditorias = this.searchListCopy;
+  }
+
 
 }
